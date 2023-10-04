@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "0C3B295E-5F28-47A3-881E-F6483EAF2249"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8D482B95-BBD8-4E56-A8FD-81CB7D2D7783"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "milestone/views/Project.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "8D482B95-BBD8-4E56-A8FD-81CB7D2D7783 - 549c4991cb4a8433"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "milestone.Project.body.getter : some"
+                  moduleName = "milestone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangyangyang/Documents/ios/milestone/milestone/views/Project.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "308">
+               </Location>
+               <Location
+                  uuid = "8D482B95-BBD8-4E56-A8FD-81CB7D2D7783 - 918d1d8e4194caa5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.VStack&lt;SwiftUI.ScrollView&lt;SwiftUI.ForEach&lt;Swift.Array&lt;milestone.IProject&gt;, Swift.Int, milestone.ProjectCard&gt;&gt;&gt;)&gt;&gt; in milestone.Project.body.getter : some"
+                  moduleName = "milestone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangyangyang/Documents/ios/milestone/milestone/views/Project.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "8D482B95-BBD8-4E56-A8FD-81CB7D2D7783 - 549c4991cb4a8433"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "milestone.Project.body.getter : some"
+                  moduleName = "milestone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangyangyang/Documents/ios/milestone/milestone/views/Project.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "8D482B95-BBD8-4E56-A8FD-81CB7D2D7783 - 918d1d8e4194caa5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.VStack&lt;SwiftUI.ScrollView&lt;SwiftUI.ForEach&lt;Swift.Array&lt;milestone.IProject&gt;, Swift.Int, milestone.ProjectCard&gt;&gt;&gt;)&gt;&gt; in milestone.Project.body.getter : some"
+                  moduleName = "milestone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangyangyang/Documents/ios/milestone/milestone/views/Project.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "404">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3C097D5-8C3B-4DEB-B6B9-8F6F1C0808B9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "milestone/Screen/Project/Project.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "85D9ACDD-7717-4CB2-963D-8C97AB005B6B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "milestone/Screen/Starter/LaunchView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E37D7747-7D08-4DA8-AACD-9970E4CC2679"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "milestone/Screen/Project/View/TimeLine/TimeLine.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "switchTab(type:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

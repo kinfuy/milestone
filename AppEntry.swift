@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct milestoneApp: App {
+struct AppEntry: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ScreenManage()
         }
     }
 }
