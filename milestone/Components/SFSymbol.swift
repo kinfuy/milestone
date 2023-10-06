@@ -27,6 +27,9 @@ enum SFSymbol:String {
     case ellipsis = "ellipsis"
     case flag = "flag.checkered"
     case clock = "clock"
+    case tag = "tag"
+    case close = "xmark"
+    case delete = "trash"
 }
 
 extension SFSymbol: View {

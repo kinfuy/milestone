@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+
+
+
 extension LineNodeView {
     
     struct NaggingNode: View {
@@ -25,6 +28,8 @@ extension LineNodeView {
                     Text(node.text)
                     Text(dateFormatter.string(from: node.createTime))
                          .font(.caption)
+                    Text("碎碎念")
+                        .lineTag(color:Color("BlueColor"))
                 }
             }
             .offset(x: -20)
@@ -47,13 +52,14 @@ extension LineNodeView {
                     Text(node.text)
                     Text(dateFormatter.string(from: node.createTime))
                          .font(.caption)
-                    Text("剩余82天")
-                        .font(.caption)
-                        .padding(.horizontal,6)
-                        .padding(.vertical,1)
-                        .background(Color("SuccessColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(4)
+                    HStack{
+                        Text("任务")
+                            .lineTag(color:Color("BlueColor"))
+                        
+                        Text("剩余3天")
+                            .lineTag(color:Color("ErrorColor"))
+                    }
+                    
                    
                 }
             }

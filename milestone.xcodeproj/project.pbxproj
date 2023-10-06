@@ -10,6 +10,8 @@
 		F208EC3D2AC0037400C90ADB /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EC3C2AC0037400C90ADB /* LaunchView.swift */; };
 		F213CAD72AADC08300ED7F48 /* Me.swift in Sources */ = {isa = PBXBuildFile; fileRef = F213CAD62AADC08300ED7F48 /* Me.swift */; };
 		F213CAD92AADC50500ED7F48 /* ProjectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F213CAD82AADC50500ED7F48 /* ProjectCard.swift */; };
+		F217E0E02ACFD75C00013649 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F217E0DF2ACFD75C00013649 /* ToolView.swift */; };
+		F217E0E22ACFE9CB00013649 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F217E0E12ACFE9CB00013649 /* TagList.swift */; };
 		F22A29632ACD761A002D281A /* BgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A29622ACD761A002D281A /* BgView.swift */; };
 		F22BDBE62AAA1753000A0412 /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22BDBE52AAA1753000A0412 /* AppEntry.swift */; };
 		F22BDBE82AAA1753000A0412 /* ScreenManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22BDBE72AAA1753000A0412 /* ScreenManage.swift */; };
@@ -32,6 +34,8 @@
 		F208EC3C2AC0037400C90ADB /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		F213CAD62AADC08300ED7F48 /* Me.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Me.swift; path = milestone/Screen/Me/Me.swift; sourceTree = SOURCE_ROOT; };
 		F213CAD82AADC50500ED7F48 /* ProjectCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectCard.swift; path = milestone/Screen/Project/View/ProjectCard.swift; sourceTree = SOURCE_ROOT; };
+		F217E0DF2ACFD75C00013649 /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
+		F217E0E12ACFE9CB00013649 /* TagList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagList.swift; path = milestone/TagList.swift; sourceTree = SOURCE_ROOT; };
 		F22A29622ACD761A002D281A /* BgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgView.swift; sourceTree = "<group>"; };
 		F22BDBE22AAA1753000A0412 /* milestone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = milestone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F22BDBE52AAA1753000A0412 /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				F255778F2AB59A3E00F71FE1 /* UserDfault.swift */,
+				F217E0DF2ACFD75C00013649 /* ToolView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				F25577912AB5F13400F71FE1 /* NavHeader.swift */,
 				F2B1FEBE2AC06EBB0069961C /* EmjoyText.swift */,
 				F22A29622ACD761A002D281A /* BgView.swift */,
+				F217E0E12ACFE9CB00013649 /* TagList.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F217E0E22ACFE9CB00013649 /* TagList.swift in Sources */,
 				F2B1FEBF2AC06EBB0069961C /* EmjoyText.swift in Sources */,
 				F208EC3D2AC0037400C90ADB /* LaunchView.swift in Sources */,
 				F22BDBE82AAA1753000A0412 /* ScreenManage.swift in Sources */,
@@ -281,6 +288,7 @@
 				F22BDBE62AAA1753000A0412 /* AppEntry.swift in Sources */,
 				F22BDBFD2AADB9A1000A0412 /* Project.swift in Sources */,
 				F213CAD92AADC50500ED7F48 /* ProjectCard.swift in Sources */,
+				F217E0E02ACFD75C00013649 /* ToolView.swift in Sources */,
 				F25577902AB59A3E00F71FE1 /* UserDfault.swift in Sources */,
 				F22BDBF92AAD8F46000A0412 /* Tabbar.swift in Sources */,
 				F2506D882AC8669F008118DD /* LineView.swift in Sources */,

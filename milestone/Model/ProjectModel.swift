@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 
-struct Tag:Identifiable {
+struct Tag:Identifiable, Hashable {
     var id: UUID = UUID()
     var title: String?
     var color: Color

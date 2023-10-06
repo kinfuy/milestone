@@ -31,12 +31,8 @@ extension Project {
                         .padding(12)
                     
                 }
-                .background(
-                    RadialGradient(gradient: Gradient(
-                        colors: [self.iconColor, self.iconColor.opacity(0.2)]), center: .center,startRadius: 2,endRadius: 60)
-                
-                    )
-                .cornerRadius(18)
+                .background(self.iconColor)
+                .cornerRadius(16)
                 .padding(.leading)
                 
                 HStack{
@@ -54,12 +50,7 @@ extension Project {
                                         Text(tag.title!)
                                     }
                                 }
-                                .font(.caption)
-                                .padding(.horizontal,6)
-                                .padding(.vertical,1)
-                                .background(tag.color)
-                                .foregroundColor(.white)
-                                .cornerRadius(4)
+                                .lineTag(color: tag.color)
                                 
                             }
                         }

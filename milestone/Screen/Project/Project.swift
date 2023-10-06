@@ -26,6 +26,12 @@ extension Project {
                     .scaledToFit()
                     .frame(width: 22)
             })
+//            .fullScreenCover(
+//                isPresented: self.$sheetStatus,
+//                content: {
+//                    EditProejct(state: self.$sheetStatus)
+//                }
+//            )
             .sheet(isPresented: self.$sheetStatus, content: {
                 EditProejct(state: self.$sheetStatus)
             })
@@ -46,17 +52,6 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         return viewControllers.count > 1
     }
 }
-
-//extension ProjectDeatilView {
-//    var BgView: some View {
-//        LinearGradient(gradient: Gradient( colors: [
-//            Color.accentColor.opacity(0.05),
-//            Color.gray.opacity(0.1)
-//        ]),startPoint: .top,endPoint: .bottom)
-//        .frame(maxWidth:.infinity,maxHeight: .infinity)
-//        .ignoresSafeArea()
-//    }
-//}
 
 struct ProjectDeatilView:View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
