@@ -9,63 +9,82 @@ import SwiftUI
 import Foundation;
 
 
+
+
+extension TimeLineView {
+    var AddView:some View {
+        VStack{
+            Spacer()
+            VStack{
+                SFSymbol.plus.resizable()
+                    .scaledToFit()
+                    .frame(width: 24,height: 24)
+                    .foregroundColor(Color("WriteColor"))
+                    .onTapGesture {
+                        self.sheetStatus.toggle()
+                    }
+                
+            }
+            .fullScreenCover(isPresented: self.$sheetStatus, content:   {
+                EditTimeLine(state: self.$sheetStatus,timeLineId:projectModel.timeLine!.id)
+            })
+            .padding(16)
+            .background(Color("BlueColor"))
+            .clipShape(Circle())
+            
+        }
+    }
+    
+    var LineContentView: some View {
+        ScrollView(content: {
+            VStack(alignment: .leading,spacing: 0){
+                Text("2023")
+                    .font(.title3)
+                    .foregroundColor(Color("BlueColor"))
+                    .fontWeight(.bold)
+                ForEach(projectModel.timeLine!.nodes) { node in
+                    LineNodeView(node: node)
+                }
+            }
+            .padding(.horizontal)
+        })
+    }
+}
+
+
 struct TimeLineView: View {
-    @Binding var timeLines:[TimeLine]
-    @Binding var current:Int
+    @StateObject private var projectModel: ProjectModel = ProjectModel()
+    
+    @State var project: Project
     
     @GestureState var offset:CGFloat = 0
+    @State var sheetStatus = false
     
-    var timeLine:TimeLine {
-        timeLines[current]
-    }
-    
-    var total:Int {
-        timeLines.count
-    }
-    
-    var isStart:Bool {
-        return self.current == 0
-    }
-    var isEnd: Bool {
-        return self.current == self.total - 1
-    }
-    
-    func switchTab(type: String){
-        let idx =  type == "last" ? -1 : 1
-        if(self.current + idx > self.total - 1){
-            self.current  = self.total - 1
-        }else if(self.current + idx < 0) {
-            self.current  =  0
-        }
-        else{
-            self.current = self.current + idx
-        }
-    }
     
     func currentWidth(width:CGFloat) -> CGFloat {
-        if(self.total == 1) { return width }
+        if(projectModel.total == 1) { return width }
         return abs(width - 40)
     }
     
     
     func offsetFor(index:Int, width:CGFloat)-> CGFloat{
-        if(self.total == 1) { return 0}
+        if(projectModel.total == 1) { return 0}
         let idx =  self.offsetIndex(index: index)
         var offsetWidth = 0
-        if(self.isEnd){
-            if(self.current == index){
+        if(projectModel.isEnd){
+            if(projectModel.current == index){
                 offsetWidth = 40
             }else{
                 offsetWidth = 100
             }
-           
+            
         }
-        if(self.isStart) {
-            if(self.current != index){
+        if(projectModel.isStart) {
+            if(projectModel.current != index){
                 offsetWidth = -60
             }
         }
-        if(!self.isEnd && !self.isStart && idx>0){
+        if(!projectModel.isEnd && !projectModel.isStart && idx>0){
             offsetWidth = -60
         }
         return width  * CGFloat(idx) + CGFloat(offsetWidth) + self.offset
@@ -73,9 +92,9 @@ struct TimeLineView: View {
     
     
     func offsetIndex(index:Int)->Int{
-        return index - self.current;
+        return index - projectModel.current;
     }
-
+    
     
     var body:some View {
         GeometryReader(content: { geometry in
@@ -83,7 +102,7 @@ struct TimeLineView: View {
                 VStack(spacing: 10){
                     HStack{
                         ZStack{
-                            ForEach(Array(timeLines.enumerated()), id: \.element.id) { index,line in
+                            ForEach(Array(projectModel.timeLines.enumerated()), id: \.element.id) { index,line in
                                 VStack{
                                     GeometryReader(content: { tab in
                                         Spacer()
@@ -95,23 +114,26 @@ struct TimeLineView: View {
                                                     VStack{
                                                         HStack(alignment:.bottom){
                                                             Group{
-                                                                Text(timeLine.milestone[0].label)
+                                                                Text(line.milestone[0].label)
                                                                 Text(":")
                                                             }.foregroundColor(.gray)
-                                                            Text(timeLine.milestone[0].display())
+                                                            Text(line.milestone[0].display())
                                                                 .foregroundColor(Color("GreenColor"))
-                                                            if((timeLine.milestone[0].unit) != nil){
-                                                                Text("\(timeLine.milestone[0].unit!)")
-                                                                    .foregroundColor(.gray)
-                                                                    .font(.caption)
-                                                            }
+                                                            Text(line.milestone[0].unit ?? "")
+                                                                .foregroundColor(.gray)
+                                                                .font(.caption)
+                                                            //                                                            if(line.milestone[0].unit!=nil){
+                                                            //                                                                Text(line.milestone[0].unit)
+                                                            //                                                                    .foregroundColor(.gray)
+                                                            //                                                                    .font(.caption)
+                                                            //                                                            }
                                                             Spacer()
                                                         }
                                                     }
                                                 }
                                             }
                                             Spacer()
-                                            line.icon.resizable().scaledToFit()
+                                            line.icon.display()
                                                 .frame(width: 24,height: 24)
                                                 .foregroundColor(Color("BlueColor"))
                                             
@@ -134,8 +156,6 @@ struct TimeLineView: View {
                                     
                                 }
                                 .padding()
-                              
-                                
                             }
                         }
                     }
@@ -149,41 +169,26 @@ struct TimeLineView: View {
                                 let translaion = value.translation.width
                                 if(translaion>0){
                                     // right
-                                    switchTab(type: "last")
+                                    projectModel.switchTab(type: "last")
                                 }else {
-                                    switchTab(type: "next")
+                                    projectModel.switchTab(type: "next")
                                 }
                             })
                     )
                     .frame(width: geometry.size.width, height: 100)
-                    ScrollView(content: {
-                        VStack(alignment: .leading,spacing: 0){
-                            Text("2023")
-                                .font(.title3)
-                                .foregroundColor(Color("BlueColor"))
-                                .fontWeight(.bold)
-                            ForEach(timeLine.nodes) { node in
-                                LineNodeView(node: node)
-                            }
-                        }
-                        .padding(.horizontal)
-                    })
-                }
-                VStack{
-                    Spacer()
-                    VStack{
-                        SFSymbol.plus.resizable()
-                            .scaledToFit()
-                            .frame(width: 24,height: 24)
-                            .foregroundColor(Color("WriteColor"))
+                    if(projectModel.total > 0 ){
+                        LineContentView
                     }
-                    .padding(16)
-                    .background(Color("BlueColor"))
-                    .clipShape(Circle())
                     
                 }
+                AddView
             }
         })
+        .onAppear {
+            if projectModel.project == nil {
+                projectModel.initProject(project: project)
+            }
+        }
         
     }
     

@@ -15,15 +15,15 @@ struct TitleView:  View {
             Text(title).font(.title2)
             Spacer()
             
-        }).padding(.horizontal, 24)
+        }).padding(.horizontal)
     }
 }
 
 
-extension Home {
+extension HomeView {
     var NavHeader: some View {
         HStack(content: {
-            Text("今日摘要")
+            Text("摘要")
                 .font(.title)
                 .fontWeight(.bold)
             Spacer()
@@ -33,7 +33,7 @@ extension Home {
     }
     var ActiveHopeView: some View {
         HStack{
-            Text("种一颗树最好的时间是十年前，其次是现在")
+            Text("“种一颗树最好的时间是十年前，其次是现在”")
                 .font(.headline)
                 .foregroundColor(Color.accentColor)
         }
@@ -46,7 +46,7 @@ extension Home {
     }
 }
 
-struct Home: View {
+struct HomeView: View {
     var body: some View {
         NavHeader
         ActiveHopeView

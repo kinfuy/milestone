@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ProjectEntity" representedClassName="ProjectEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="iconColor" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="tags" attributeType="String"/>
+        <attribute name="timelines" attributeType="String"/>
+        <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="TagEntity" representedClassName="TagEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="color" attributeType="String"/>
+        <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
+</model>

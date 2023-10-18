@@ -7,11 +7,14 @@ extension ScreenManage {
         VStack{
             switch currentTab {
             case .taday:
-                Home()
+                HomeView()
             case .project:
-                Project()
+                ProjectView()
+            case .warehouse:
+                WarehouseView()
             case .me:
-                Me()
+                MeView()
+           
             }
         }
         .frame(maxWidth:.infinity,maxHeight: .infinity)

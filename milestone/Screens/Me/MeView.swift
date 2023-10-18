@@ -37,7 +37,7 @@ enum DarkMode: String, CaseIterable {
     }
 }
 
-extension Me {
+extension MeView {
     var NavHeader: some View {
         HStack(content: {
             Text("设置")
@@ -63,7 +63,7 @@ extension View {
     
 }
 
-struct Me: View {
+struct MeView: View {
     @AppStorage("DarkMode") var darkMode:DarkMode = .system
     @State var isSynciCloud = false
     @State var isPro = true
@@ -151,8 +151,8 @@ struct Me: View {
     }
 }
 
-struct Me_Previews: PreviewProvider {
+struct MeView_Previews: PreviewProvider {
     static var previews: some View {
-        Me()
+        MeView()
     }
 }

@@ -57,7 +57,7 @@ extension LineNodeView {
                             .lineTag(color:Color("BlueColor"))
                         
                         Text("剩余3天")
-                            .lineTag(color:Color("ErrorColor"))
+                            .lineTag(color:Color("GreenColor"))
                     }
                     
                    

@@ -1,18 +1,22 @@
 import SwiftUI
 
 enum TabbarEnum: String, CaseIterable {
-    case taday  = "今日摘要"
-    case project = "我的项目"
+    case taday  = "摘要"
+    case project = "项目"
+    case warehouse = "仓库"
     case me = "设置"
+   
     
     var iconName: SFSymbol {
         switch self {
         case .taday:
             return SFSymbol.home
         case .project:
-            return SFSymbol.project
+            return SFSymbol.book
         case .me:
             return SFSymbol.set
+        case .warehouse:
+            return SFSymbol.warehouse
         }
         
     }

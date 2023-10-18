@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-enum SFSymbol:String {
-    case home = "calendar.circle.fill"
-    case project = "book.circle.fill"
-    case me = "person.circle.fill"
+enum SFSymbol:String, Codable {
+    case home = "calendar"
+    case me = "person"
     case plus = "plus"
     case moon = "moon"
     case sun = "sun.max"
@@ -30,6 +29,10 @@ enum SFSymbol:String {
     case tag = "tag"
     case close = "xmark"
     case delete = "trash"
+    case warehouse = "books.vertical"
+    case sunMin = "sun.min"
+    case airplane = "airplane"
+    case fossilShell = "fossil.shell"
 }
 
 extension SFSymbol: View {

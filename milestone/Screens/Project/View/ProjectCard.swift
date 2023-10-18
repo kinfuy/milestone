@@ -13,49 +13,35 @@ let dateFormatter: DateFormatter = {
     return formatter
 }()
 
-extension Project {
+extension ProjectView {
     struct ProjectCard: View {
-        var name:String
-        var icon:String
-        var update:Date
-        var iconColor:Color
-        var tags:[Tag] = []
+        var project:Project
         var body: some View {
             HStack{
                 VStack{
-                    Image(systemName: self.icon)
-                        .resizable()
+                      Text(self.project.icon)
                         .foregroundColor(Color.white)
-                        .scaledToFit()
+                        .font(.system(size: 30))
                         .frame(width: 32,height: 32)
                         .padding(12)
-                    
                 }
-                .background(self.iconColor)
+                .background(self.project.iconColor)
                 .cornerRadius(16)
                 .padding(.leading)
                 
                 HStack{
                     VStack(alignment: .leading){
-                        Text(self.name)
+                        Text(self.project.name)
                             .font(.headline)
                             .fontWeight(.bold)
                             .padding(.bottom, -4)
                         HStack{
-                            ForEach(self.tags){ tag in
-                                VStack{
-                                    if(tag.icon != nil ) {
-                                        tag.icon
-                                    }else {
-                                        Text(tag.title!)
-                                    }
-                                }
-                                .lineTag(color: tag.color)
-                                
+                            ForEach(self.project.tags){ tag in
+                                tag.display()
                             }
                         }
                         .padding(.vertical,1)
-                        Text(dateFormatter.string(from: self.update))
+                        Text(dateFormatter.string(from: self.project.update))
                             .font(.caption)
                         
                     }

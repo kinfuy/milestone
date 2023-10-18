@@ -17,6 +17,12 @@ extension View {
             .foregroundColor(.white)
             .cornerRadius(4)
     }
+    
+    func selection()->some View {
+        self
+            .padding()
+            .background(Color("WriteColor"))
+    }
 }
 
 extension String {
