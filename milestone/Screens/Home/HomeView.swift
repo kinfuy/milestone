@@ -19,6 +19,16 @@ struct TitleView:  View {
     }
 }
 
+struct SecondTitleView:  View {
+    var title:String = ""
+    var body: some View {
+        HStack(content: {
+            Text(title).font(.title3)
+            Spacer()
+            
+        }).padding(.horizontal)
+    }
+}
 
 extension HomeView {
     var NavHeader: some View {

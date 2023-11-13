@@ -72,7 +72,12 @@ extension EditProejct {
                     self.projectModel.project?.icon = self.emoji
                     self.projectModel.project?.iconColor = self.projectColor
                     self.projectModel.project?.tags = self.tagManage.tags
-                    projectManagetModel.add(project: self.projectModel.project!)
+                    if(projectModel.isEdit){
+                        projectManagetModel.update(project: self.projectModel.project!)
+                    }else{
+                        projectManagetModel.add(project: self.projectModel.project!)
+                    }
+                    
                     self.$state.wrappedValue.toggle()
                 }
             })
@@ -144,7 +149,7 @@ extension EditProejct {
                         if(self.inputTag != ""){
                             SFSymbol.plus
                                 .onTapGesture {
-                                    self.tagManage.add(tag: Tag(title: self.inputTag, color: self.tagColor))
+                                    self.tagManage.add(tag: Tag(title: self.inputTag, color: self.tagColor,create:Date(),update:Date()))
                                     self.inputTag = ""
                                 }
                         }else{
@@ -179,7 +184,6 @@ extension EditProejct {
 }
 
 struct EditProejct: View {
-    var projectId:UUID
     @EnvironmentObject var projectManagetModel: ProjectManageModel
     @Binding var state:Bool
     
@@ -226,12 +230,13 @@ struct EditProejct: View {
         }
         .onAppear {
             if (projectModel.project == nil) {
-                let project =  projectModel.initProject(project: projectManagetModel.currentProject)
-                self.name = project.name
-                self.emoji = project.icon
-                self.projectColor = project.iconColor
-                self.tagManage.add(tags: project.tags)
-                
+                projectModel.initProject(project: projectManagetModel.currentProject)
+                if let project = projectModel.project {
+                    self.name = project.name
+                    self.emoji = project.icon
+                    self.projectColor = project.iconColor
+                    self.tagManage.add(tags: project.tags)
+                }
             }
         }
     }

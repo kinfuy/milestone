@@ -32,10 +32,13 @@
 		F25577902AB59A3E00F71FE1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F255778F2AB59A3E00F71FE1 /* UserDefaults.swift */; };
 		F25577922AB5F13400F71FE1 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25577912AB5F13400F71FE1 /* NavHeader.swift */; };
 		F25577972AB9F84900F71FE1 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25577962AB9F84900F71FE1 /* TimeLineView.swift */; };
-		F269CC482ADA7C65005511BF /* ProjectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269CC472ADA7C65005511BF /* ProjectService.swift */; };
-		F269CC4C2ADA7E15005511BF /* ProjectProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269CC4B2ADA7E15005511BF /* ProjectProvider.swift */; };
+		F26DD12C2AED558F00DF9025 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26DD12A2AED558F00DF9025 /* CoreDataService.swift */; };
 		F286D8F22ADED989005A10CA /* Bingding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F12ADED989005A10CA /* Bingding.swift */; };
 		F286D8F42AE022EE005A10CA /* emptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F32AE022EE005A10CA /* emptyView.swift */; };
+		F286D8F62AE167A5005A10CA /* CardSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F52AE167A5005A10CA /* CardSelectView.swift */; };
+		F291D8862AF630AF009D80D3 /* EditNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F291D8852AF630AF009D80D3 /* EditNode.swift */; };
+		F291D8882AF7D98A009D80D3 /* FlexLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F291D8872AF7D98A009D80D3 /* FlexLayout.swift */; };
+		F291D88A2AF7EB27009D80D3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F291D8892AF7EB27009D80D3 /* Date.swift */; };
 		F2A978042AD9A08D00ABA274 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A978032AD9A08D00ABA274 /* Color.swift */; };
 		F2A978062AD9A33C00ABA274 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A978052AD9A33C00ABA274 /* MeView.swift */; };
 		F2A978082AD9A35000ABA274 /* ProjectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A978072AD9A35000ABA274 /* ProjectCard.swift */; };
@@ -72,10 +75,13 @@
 		F255778F2AB59A3E00F71FE1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		F25577912AB5F13400F71FE1 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		F25577962AB9F84900F71FE1 /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
-		F269CC472ADA7C65005511BF /* ProjectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectService.swift; sourceTree = "<group>"; };
-		F269CC4B2ADA7E15005511BF /* ProjectProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectProvider.swift; sourceTree = "<group>"; };
+		F26DD12A2AED558F00DF9025 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		F286D8F12ADED989005A10CA /* Bingding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bingding.swift; sourceTree = "<group>"; };
 		F286D8F32AE022EE005A10CA /* emptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emptyView.swift; sourceTree = "<group>"; };
+		F286D8F52AE167A5005A10CA /* CardSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSelectView.swift; sourceTree = "<group>"; };
+		F291D8852AF630AF009D80D3 /* EditNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNode.swift; sourceTree = "<group>"; };
+		F291D8872AF7D98A009D80D3 /* FlexLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexLayout.swift; sourceTree = "<group>"; };
+		F291D8892AF7EB27009D80D3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F2A978032AD9A08D00ABA274 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F2A978052AD9A33C00ABA274 /* MeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		F2A978072AD9A35000ABA274 /* ProjectCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCard.swift; sourceTree = "<group>"; };
@@ -132,8 +138,8 @@
 		F22BDBE42AAA1753000A0412 /* milestone */ = {
 			isa = PBXGroup;
 			children = (
-				F269CC462ADA7C42005511BF /* Service */,
-				F2AF6E292ADA5639005CF762 /* db */,
+				F26DD1292AED558F00DF9025 /* Service */,
+				F2AF6E292ADA5639005CF762 /* DB */,
 				F2AF6E262ADA2351005CF762 /* Shared */,
 				F23208072AD99B9A003A8CA1 /* ModelViews */,
 				F2D2E8A92AB5509700F4360F /* Screens */,
@@ -162,11 +168,10 @@
 			path = TimeLine;
 			sourceTree = "<group>";
 		};
-		F269CC462ADA7C42005511BF /* Service */ = {
+		F26DD1292AED558F00DF9025 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				F269CC472ADA7C65005511BF /* ProjectService.swift */,
-				F269CC4B2ADA7E15005511BF /* ProjectProvider.swift */,
+				F26DD12A2AED558F00DF9025 /* CoreDataService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				F217E0DF2ACFD75C00013649 /* ToolView.swift */,
 				F2A978032AD9A08D00ABA274 /* Color.swift */,
 				F286D8F12ADED989005A10CA /* Bingding.swift */,
+				F291D8892AF7EB27009D80D3 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -226,6 +232,8 @@
 				F2BCCEA42AAF4FC2006FDBBA /* EditProejct.swift */,
 				F2A978072AD9A35000ABA274 /* ProjectCard.swift */,
 				F23208052AD6DF83003A8CA1 /* EditTimeLine.swift */,
+				F286D8F52AE167A5005A10CA /* CardSelectView.swift */,
+				F291D8852AF630AF009D80D3 /* EditNode.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 				F217E0E12ACFE9CB00013649 /* TagList.swift */,
 				F248157C2ADC195B001D9F45 /* ModelView.swift */,
 				F286D8F32AE022EE005A10CA /* emptyView.swift */,
+				F291D8872AF7D98A009D80D3 /* FlexLayout.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -270,12 +279,12 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		F2AF6E292ADA5639005CF762 /* db */ = {
+		F2AF6E292ADA5639005CF762 /* DB */ = {
 			isa = PBXGroup;
 			children = (
 				F24815792ADBACB6001D9F45 /* ProjectDB.xcdatamodeld */,
 			);
-			path = db;
+			path = DB;
 			sourceTree = "<group>";
 		};
 		F2D2E8A92AB5509700F4360F /* Screens */ = {
@@ -368,7 +377,6 @@
 				F286D8F42AE022EE005A10CA /* emptyView.swift in Sources */,
 				F22BDBE82AAA1753000A0412 /* ScreenManage.swift in Sources */,
 				F25577972AB9F84900F71FE1 /* TimeLineView.swift in Sources */,
-				F269CC482ADA7C65005511BF /* ProjectService.swift in Sources */,
 				F2BCCEA52AAF4FC2006FDBBA /* EditProejct.swift in Sources */,
 				F255778D2AB5863000F71FE1 /* SFSymbol.swift in Sources */,
 				F206AD522AD2E7990020D19A /* WarehouseView.swift in Sources */,
@@ -377,12 +385,14 @@
 				F248157B2ADBACB6001D9F45 /* ProjectDB.xcdatamodeld in Sources */,
 				F2A978042AD9A08D00ABA274 /* Color.swift in Sources */,
 				F2A978062AD9A33C00ABA274 /* MeView.swift in Sources */,
+				F26DD12C2AED558F00DF9025 /* CoreDataService.swift in Sources */,
 				F22BDBF62AAD8ED8000A0412 /* HomeView.swift in Sources */,
+				F291D8862AF630AF009D80D3 /* EditNode.swift in Sources */,
 				F25577922AB5F13400F71FE1 /* NavHeader.swift in Sources */,
 				F23208112AD99CC8003A8CA1 /* Project.swift in Sources */,
 				F23208062AD6DF83003A8CA1 /* EditTimeLine.swift in Sources */,
-				F269CC4C2ADA7E15005511BF /* ProjectProvider.swift in Sources */,
 				F23208092AD99BD0003A8CA1 /* Tag.swift in Sources */,
+				F291D8882AF7D98A009D80D3 /* FlexLayout.swift in Sources */,
 				F22BDBE62AAA1753000A0412 /* AppEntry.swift in Sources */,
 				F232080F2AD99C73003A8CA1 /* TimeLine.swift in Sources */,
 				F22BDBFD2AADB9A1000A0412 /* ProjectView.swift in Sources */,
@@ -393,7 +403,9 @@
 				F248157D2ADC195B001D9F45 /* ModelView.swift in Sources */,
 				F2506D882AC8669F008118DD /* LineView.swift in Sources */,
 				F2AF6E282ADA2D94005CF762 /* IconModel.swift in Sources */,
+				F286D8F62AE167A5005A10CA /* CardSelectView.swift in Sources */,
 				F2506D8A2AC867F4008118DD /* LineNodeView.swift in Sources */,
+				F291D88A2AF7EB27009D80D3 /* Date.swift in Sources */,
 				F2AA61132AB555DA003548D9 /* ProjectModel.swift in Sources */,
 				F22A29632ACD761A002D281A /* BgView.swift in Sources */,
 			);

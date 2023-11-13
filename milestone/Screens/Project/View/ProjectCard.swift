@@ -7,7 +7,13 @@
 
 import SwiftUI
 
-let dateFormatter: DateFormatter = {
+let MMDDHHMM: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MM月dd日 HH:mm"
+    return formatter
+}()
+
+let YYMMDDHHMM: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH:mm"
     return formatter
@@ -41,7 +47,7 @@ extension ProjectView {
                             }
                         }
                         .padding(.vertical,1)
-                        Text(dateFormatter.string(from: self.project.update))
+                        Text(YYMMDDHHMM.string(from: self.project.update))
                             .font(.caption)
                         
                     }

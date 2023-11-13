@@ -3,7 +3,7 @@ import SwiftUI
 enum TabbarEnum: String, CaseIterable {
     case taday  = "摘要"
     case project = "项目"
-    case warehouse = "仓库"
+//    case warehouse = "仓库"
     case me = "设置"
    
     
@@ -15,8 +15,8 @@ enum TabbarEnum: String, CaseIterable {
             return SFSymbol.book
         case .me:
             return SFSymbol.set
-        case .warehouse:
-            return SFSymbol.warehouse
+//        case .warehouse:
+//            return SFSymbol.warehouse
         }
         
     }

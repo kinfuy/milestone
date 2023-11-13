@@ -10,8 +10,8 @@ extension ScreenManage {
                 HomeView()
             case .project:
                 ProjectView()
-            case .warehouse:
-                WarehouseView()
+//            case .warehouse:
+//                WarehouseView()
             case .me:
                 MeView()
            

@@ -19,20 +19,15 @@ struct Milestone:Identifiable,Codable {
     var id: UUID = UUID()
     var target: Int
     var source: Int
-    var unit:String?;
     var label:String;
     var valueType: ValueType
+    var update:Date
+    var create:Date
+    var unit: String?;
     
     
     func display() -> String {
         return "\(self.source)/\(self.target)"
-    }
-    
-    func toString() throws -> String {
-        let jsonEncoder = JSONEncoder()
-        let data = try jsonEncoder.encode(self)
-        guard let jsonString = String(data: data, encoding: .utf8) else { return "" }
-        return jsonString
     }
     
 }

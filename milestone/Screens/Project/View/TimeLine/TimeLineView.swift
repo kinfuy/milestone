@@ -11,6 +11,7 @@ import Foundation;
 
 
 
+
 extension TimeLineView {
     var AddView:some View {
         VStack{
@@ -25,9 +26,11 @@ extension TimeLineView {
                     }
                 
             }
-            .fullScreenCover(isPresented: self.$sheetStatus, content:   {
-                EditTimeLine(state: self.$sheetStatus,timeLineId:projectModel.timeLine!.id)
+            .sheet(isPresented: self.$sheetStatus, content:   {
+                CardSelectView(state: self.$sheetStatus)
             })
+            .environmentObject(projectModel)
+            
             .padding(16)
             .background(Color("BlueColor"))
             .clipShape(Circle())
@@ -36,25 +39,35 @@ extension TimeLineView {
     }
     
     var LineContentView: some View {
-        ScrollView(content: {
-            VStack(alignment: .leading,spacing: 0){
-                Text("2023")
-                    .font(.title3)
-                    .foregroundColor(Color("BlueColor"))
-                    .fontWeight(.bold)
-                ForEach(projectModel.timeLine!.nodes) { node in
-                    LineNodeView(node: node)
-                }
+        VStack(alignment: .leading,spacing: 0){
+            if(projectModel.timeLine != nil && projectModel.timeLine!.isHasNodes){
+                Text("2023年")
+                .font(.title3).fontWeight(.bold)
+                .foregroundColor(Color("BlueColor"))
+                .padding(.horizontal)
+                ScrollView(content: {
+                    VStack(alignment: .leading, spacing: 0){
+                        ForEach(projectModel.timeLine!.nodes) { node in
+//                            Text("\(node.create.month())月")
+//                                .fontWeight(.bold)
+//                                .foregroundColor(Color("BlueColor"))
+//                                .padding(.leading,2)
+                            LineNodeView(node: node)
+                        }
+                    }
+                    .padding(.horizontal)
+                })
+                .environmentObject(projectModel)
             }
-            .padding(.horizontal)
-        })
+            
+        }
     }
 }
 
 
 struct TimeLineView: View {
-    @StateObject private var projectModel: ProjectModel = ProjectModel()
-    
+    @EnvironmentObject var projectManagetModel: ProjectManageModel
+    @StateObject var projectModel: ProjectModel = ProjectModel()
     @State var project: Project
     
     @GestureState var offset:CGFloat = 0
@@ -72,7 +85,7 @@ struct TimeLineView: View {
         let idx =  self.offsetIndex(index: index)
         var offsetWidth = 0
         if(projectModel.isEnd){
-            if(projectModel.current == index){
+            if(projectModel.currentIndex == index){
                 offsetWidth = 40
             }else{
                 offsetWidth = 100
@@ -80,7 +93,7 @@ struct TimeLineView: View {
             
         }
         if(projectModel.isStart) {
-            if(projectModel.current != index){
+            if(projectModel.currentIndex != index){
                 offsetWidth = -60
             }
         }
@@ -92,9 +105,9 @@ struct TimeLineView: View {
     
     
     func offsetIndex(index:Int)->Int{
-        return index - projectModel.current;
+        return index - projectModel.currentIndex;
     }
-    
+
     
     var body:some View {
         GeometryReader(content: { geometry in
@@ -122,11 +135,6 @@ struct TimeLineView: View {
                                                             Text(line.milestone[0].unit ?? "")
                                                                 .foregroundColor(.gray)
                                                                 .font(.caption)
-                                                            //                                                            if(line.milestone[0].unit!=nil){
-                                                            //                                                                Text(line.milestone[0].unit)
-                                                            //                                                                    .foregroundColor(.gray)
-                                                            //                                                                    .font(.caption)
-                                                            //                                                            }
                                                             Spacer()
                                                         }
                                                     }
@@ -145,6 +153,14 @@ struct TimeLineView: View {
                                         )
                                         .background(Color("WriteColor"))
                                         .cornerRadius(8)
+                                        .contextMenu(menuItems: {
+                                            Button(action: {
+                                                self.projectModel.deleteTimeline(id: line.id)
+                                            }) {
+                                                Text("删除")
+                                            }
+                                        })
+                                        
                                         .shadow(
                                             color:
                                                 Color("BlueColor")
@@ -152,10 +168,12 @@ struct TimeLineView: View {
                                         .opacity(1 - abs(CGFloat(offsetIndex(index:index)) * 0.25) )
                                         .scaleEffect(1 - abs(CGFloat(offsetIndex(index:index)) * 0.05))
                                         .offset(x: offsetFor(index: index, width: geometry.size.width))
+                                        
                                     })
                                     
                                 }
                                 .padding()
+                                
                             }
                         }
                     }
@@ -179,14 +197,16 @@ struct TimeLineView: View {
                     if(projectModel.total > 0 ){
                         LineContentView
                     }
+                    Spacer()
                     
                 }
                 AddView
             }
         })
         .onAppear {
-            if projectModel.project == nil {
-                projectModel.initProject(project: project)
+            projectManagetModel.setCurrent(id: project.id)
+            if (projectModel.project == nil) {
+                projectModel.initProject(project: projectManagetModel.currentProject)
             }
         }
         

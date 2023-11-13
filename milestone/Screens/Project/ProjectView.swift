@@ -28,7 +28,7 @@ extension ProjectView {
                     .frame(width: 22)
             })
             .sheet(isPresented: self.$sheetStatus, content: {
-                EditProejct(projectId: UUID(),state: self.$sheetStatus)
+                EditProejct(state: self.$sheetStatus)
             })
             .environmentObject(projecManagetModel)
             
@@ -55,7 +55,6 @@ struct ProjectDeatilView:View {
     @State var project: Project
     
     
-    
     var body:some View {
         ZStack{
             BgView()
@@ -76,12 +75,27 @@ struct ProjectDeatilView:View {
             }.foregroundStyle(Color.gray)
         })
         )
-        .navigationBarItems(trailing: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
+        .navigationBarItems(trailing: Menu(content: {
+            Button(action: {
+                
+            }, label: {
+                VStack{
+                    Text("排序")
+                    Spacer()
+                    SFSymbol.sort
+                }
+            })
+            Button(action: {
+                
+            }, label: {
+                VStack{
+                    Text("设置")
+                    Spacer()
+                    SFSymbol.set
+                }
+            })
         }, label: {
-            Group{
-                SFSymbol.ellipsis
-            }.foregroundStyle(Color.gray)
+            SFSymbol.ellipsis.foregroundStyle(Color.gray)
         })
         )
     }
@@ -93,10 +107,7 @@ struct ProjectView: View {
     
     @State private var editSheetStatus:Bool  = false
     
-    @StateObject var projecManagetModel = ProjectManageModel()
-    
-    
-    
+    @ObservedObject var projecManagetModel = ProjectManageModel()
     @State private var editProject:Project? = nil
     
     var body: some View {
@@ -120,6 +131,7 @@ struct ProjectView: View {
                     ForEach(projecManagetModel.projects){ item in
                         NavigationLink(destination: {
                             ProjectDeatilView(project: item)
+                                .environmentObject(projecManagetModel)
                         }, label: {
                             ProjectCard(project:item)
                                 .contextMenu(menuItems: {
@@ -152,9 +164,11 @@ struct ProjectView: View {
                         )
                         .sheet(isPresented: self.$editSheetStatus, content: {
                             EditProejct(
-                                projectId: item.id,
                                 state: self.$editSheetStatus
                             )
+                            .onDisappear(){
+                                projecManagetModel.setCurrent(id: nil)
+                            }
                         })
                         .environmentObject(projecManagetModel)
                         .buttonStyle(PlainButtonStyle())
@@ -164,6 +178,9 @@ struct ProjectView: View {
             }
             
         })
+        .onAppear(){
+            projecManagetModel.fetch()
+        }
     }
 }
 

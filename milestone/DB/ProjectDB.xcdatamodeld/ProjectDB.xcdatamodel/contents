@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="MilestoneEntity" representedClassName="MilestoneEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="label" attributeType="String"/>
+        <attribute name="source" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="target" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unit" optional="YES" attributeType="String"/>
+        <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="valueType" attributeType="String"/>
+        <relationship name="belong" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="milestone" inverseEntity="TimeLineEntity"/>
+    </entity>
+    <entity name="NodeEntity" representedClassName="NodeEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="nodeType" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="belong" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="nodes" inverseEntity="TimeLineEntity"/>
+    </entity>
+    <entity name="ProjectEntity" representedClassName="ProjectEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="iconColor" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TagEntity" inverseName="belong" inverseEntity="TagEntity"/>
+        <relationship name="timelines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="belong" inverseEntity="TimeLineEntity"/>
+    </entity>
+    <entity name="TagEntity" representedClassName="TagEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String" minValueString="1" maxValueString="50"/>
+        <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="belong" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProjectEntity" inverseName="tags" inverseEntity="ProjectEntity"/>
+    </entity>
+    <entity name="TaskEntity" representedClassName="TaskEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="TimeLineEntity" representedClassName="TimeLineEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="belong" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectEntity" inverseName="timelines" inverseEntity="ProjectEntity"/>
+        <relationship name="milestone" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MilestoneEntity" inverseName="belong" inverseEntity="MilestoneEntity"/>
+        <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NodeEntity" inverseName="belong" inverseEntity="NodeEntity"/>
+    </entity>
+</model>

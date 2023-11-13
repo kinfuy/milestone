@@ -46,7 +46,6 @@ struct Icon: Codable, Equatable {
     private var sfsymbol: SFSymbol?
     
     var rawvalue:  String  {
-        print(self.emoji ?? "111")
         return self.emoji ?? ""
     }
     

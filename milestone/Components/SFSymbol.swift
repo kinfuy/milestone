@@ -33,6 +33,12 @@ enum SFSymbol:String, Codable {
     case sunMin = "sun.min"
     case airplane = "airplane"
     case fossilShell = "fossil.shell"
+    case checkmark = "checkmark.gobackward"
+    case shuffle = "shuffle"
+    case cart = "cart"
+    case signpost = "signpost.right.and.left"
+    case calendar = "calendar.badge.clock"
+    case sort = "list.bullet.indent"
 }
 
 extension SFSymbol: View {

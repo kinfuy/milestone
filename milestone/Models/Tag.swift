@@ -1,5 +1,8 @@
 
 import SwiftUI
+import CoreData
+
+
 
 
 
@@ -17,6 +20,8 @@ struct Tag:Identifiable, Codable, Equatable {
     var title: String?
     var color: Color
     var icon: Icon?
+    var create:Date
+    var update:Date
     
     func display()->some View {
         AnyView(
@@ -34,11 +39,27 @@ struct Tag:Identifiable, Codable, Equatable {
         )
     }
     
-    func toString() throws -> String {
-        let jsonEncoder = JSONEncoder()
-        let data = try jsonEncoder.encode(self)
-        guard let jsonString = String(data: data, encoding: .utf8) else { return "" }
-        return jsonString
+    func into(context:NSManagedObjectContext)->TagEntity {
+        let tag =  TagEntity(context: context)
+        tag.id = self.id
+        tag.color = self.color.toHex
+        if let title = self.title {
+            tag.title = title
+        }
+        if let icon = self.icon {
+            tag.icon = icon.rawvalue
+        }
+        tag.create = self.create
+        tag.update = self.update
+        return tag
+    }
+    
+    static func from(tag: TagEntity)-> Tag {
+        var t = Tag(id:tag.id!, title:tag.title, color: Color(hex: tag.color!),create: tag.create!,update: tag.update!)
+        if let icon = tag.icon {
+            t.icon = Icon(emoji: icon)
+        }
+        return t
     }
 }
 
