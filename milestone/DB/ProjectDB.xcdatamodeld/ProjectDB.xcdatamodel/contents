@@ -28,7 +28,9 @@
         <attribute name="icon" attributeType="String"/>
         <attribute name="iconColor" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isTop" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="sort" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TagEntity" inverseName="belong" inverseEntity="TagEntity"/>
         <relationship name="timelines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="belong" inverseEntity="TimeLineEntity"/>

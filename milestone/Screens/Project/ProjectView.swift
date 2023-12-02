@@ -17,7 +17,7 @@ extension ProjectView {
             Spacer()
             
             Button(action: {
-                projecManagetModel.setCurrent(id: nil)
+                projectManageModel.setCurrent(id: nil)
                 self.$sheetStatus
                     .wrappedValue
                     .toggle()
@@ -30,10 +30,24 @@ extension ProjectView {
             .sheet(isPresented: self.$sheetStatus, content: {
                 EditProejct(state: self.$sheetStatus)
             })
-            .environmentObject(projecManagetModel)
+            .environmentObject(projectManageModel)
             
         })
         .padding([.leading,.trailing])
+    }
+    
+    var EmptyView: some View {
+        VStack{
+            Button(action: {
+                self.$sheetStatus
+                    .wrappedValue
+                    .toggle()
+            }, label: {
+                Text("创建项目").font(.title)
+            })
+            Text("这里什么都没有，快创建一个项目吧").foregroundColor(.secondary)
+        }.frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            .padding()
     }
 }
 
@@ -51,15 +65,17 @@ extension UINavigationController: UIGestureRecognizerDelegate {
 
 struct ProjectDeatilView:View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var projectManageModel: ProjectManageModel
     
     @State var project: Project
-    
+    @StateObject var projectModel: ProjectModel = ProjectModel()
     
     var body:some View {
         ZStack{
             BgView()
             VStack{
                 TimeLineView(project: project)
+                    .environmentObject(projectModel)
             }
             .clipped()
         }
@@ -77,12 +93,30 @@ struct ProjectDeatilView:View {
         )
         .navigationBarItems(trailing: Menu(content: {
             Button(action: {
-                
+                projectModel.setOrder(order: .asc)
             }, label: {
                 VStack{
                     Text("排序")
                     Spacer()
                     SFSymbol.sort
+                }
+            })
+            Button(action: {
+                projectModel.setOrder(order: .desc)
+            }, label: {
+                VStack{
+                    Text("正序")
+                    Spacer()
+                    SFSymbol.down
+                }
+            })
+            Button(action: {
+                
+            }, label: {
+                VStack{
+                    Text("倒序")
+                    Spacer()
+                    SFSymbol.up
                 }
             })
             Button(action: {
@@ -98,6 +132,12 @@ struct ProjectDeatilView:View {
             SFSymbol.ellipsis.foregroundStyle(Color.gray)
         })
         )
+        .onAppear {
+            projectManageModel.setCurrent(id: project.id)
+            if (projectModel.project == nil) {
+                projectModel.initProject(project: projectManageModel.currentProject)
+            }
+        }
     }
     
 }
@@ -107,51 +147,58 @@ struct ProjectView: View {
     
     @State private var editSheetStatus:Bool  = false
     
-    @ObservedObject var projecManagetModel = ProjectManageModel()
+    @ObservedObject var projectManageModel = ProjectManageModel()
     @State private var editProject:Project? = nil
+    
+    @State var rightSliding: UUID?
+    
+    @State private var isActives: [Bool] = []
+    
+    
+    func open(val:Bool){
+        self.sheetStatus = val
+    }
     
     var body: some View {
         VStack(content: {
             NavHeader
-            if(projecManagetModel.projects.count==0){
-                VStack{
-                    Button(action: {
-                        self.$sheetStatus
-                            .wrappedValue
-                            .toggle()
-                    }, label: {
-                        Text("创建项目").font(.title)
-                    })
-                    Text("这里什么都没有，快创建一个项目吧").foregroundColor(.secondary)
-                }.frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                    .padding()
+            if(projectManageModel.projects.count==0){
+                EmptyView
                 Spacer()
-            }else{
+            }else if(isActives.count > 0 ){
                 ScrollView(content: {
-                    ForEach(projecManagetModel.projects){ item in
-                        NavigationLink(destination: {
-                            ProjectDeatilView(project: item)
-                                .environmentObject(projecManagetModel)
-                        }, label: {
-                            ProjectCard(project:item)
+                    ForEach(projectManageModel.projects){ item in
+                        NavigationLink(
+                             destination: ProjectDeatilView(project: item)
+                                   .environmentObject(projectManageModel),
+                             isActive: $isActives[projectManageModel.projects.firstIndex(of: item)!],
+                             label: {
+                                ProjectCard(
+                                    project:item,rightSliding: $rightSliding, sheetStatus: $sheetStatus)
+                                     .environmentObject(projectManageModel)
                                 .contextMenu(menuItems: {
                                     Button(action: {
-                                        projecManagetModel.setCurrent(id: item.id)
-                                        self.$sheetStatus
-                                            .wrappedValue
-                                            .toggle()
+                                        projectManageModel.setCurrent(id: item.id)
+                                        self.open(val: true)
                                     }) {
                                         Text("编辑")
                                     }
-                                    Button(action: {
-                                       
-                                    }) {
-                                        Text("置顶")
-                                        
+                                    if(!item.isTop){
+                                        Button(action: {
+                                            projectManageModel.setTop(id: item.id,val: true)
+                                        }) {
+                                            Text("置顶")
+                                        }
+                                    }else{
+                                        Button(action: {
+                                            projectManageModel.setTop(id: item.id,val: false)
+                                        }) {
+                                            Text("取消置顶")
+                                        }
                                     }
-                                    
+                                
                                     Button(action: {
-                                        projecManagetModel.delete(id: item.id)
+                                        projectManageModel.delete(id: item.id)
                                     }) {
                                         Text("删除")
                                     }
@@ -159,7 +206,12 @@ struct ProjectView: View {
                                     
                                 })
                                 .padding([.leading,.trailing],20)
-                                
+                                .onTapGesture {
+                                    if(rightSliding == nil){
+                                        isActives[projectManageModel.projects.firstIndex(of: item)!] = true
+                                    }
+                                    rightSliding = nil
+                                }
                           }
                         )
                         .sheet(isPresented: self.$editSheetStatus, content: {
@@ -167,20 +219,25 @@ struct ProjectView: View {
                                 state: self.$editSheetStatus
                             )
                             .onDisappear(){
-                                projecManagetModel.setCurrent(id: nil)
+                                projectManageModel.setCurrent(id: nil)
                             }
                         })
-                        .environmentObject(projecManagetModel)
+                        .environmentObject(projectManageModel)
                         .buttonStyle(PlainButtonStyle())
                        
                     }
                 })
+                .animation(.spring, value: projectManageModel.projects)
             }
             
         })
         .onAppear(){
-            projecManagetModel.fetch()
+            projectManageModel.fetch()
+            // 动态创建isActives数组，和items数目保持一致
+            isActives = Array(repeating: false, count: projectManageModel.projects.count)
+         
         }
+        .padding(.bottom, 68)
     }
 }
 

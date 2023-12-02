@@ -89,7 +89,7 @@ enum NodeStatus: String, CaseIterable, Codable {
     }
 }
 
-struct LineNode:Identifiable, Codable {
+struct LineNode:Identifiable, Hashable, Codable {
     var id: UUID = UUID()
     var title:String
     var type: NodeType
@@ -99,6 +99,8 @@ struct LineNode:Identifiable, Codable {
     var startTime:Date?
     var endTime:Date?
     var status:NodeStatus = .unowned
+    
+    var isEdit:Bool = false
     
     func into(context:NSManagedObjectContext)->NodeEntity{
         let node =  NodeEntity(context: context)
@@ -132,7 +134,7 @@ struct LineNode:Identifiable, Codable {
     
     var remainder:String? {
         if let end = self.endTime {
-            return Date().compareTo(otherDate: end)
+            return DateClass.compareCurrentTime(time: end)
         }
         return nil
        

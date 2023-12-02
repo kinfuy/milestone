@@ -97,6 +97,7 @@ extension CardSelectView {
             }
             .card()
             .onTapGesture {
+                self.projectModel.initEditTimeline()
                 self.isEdit.toggle()
             }
             .sheet(isPresented: self.$isEdit){

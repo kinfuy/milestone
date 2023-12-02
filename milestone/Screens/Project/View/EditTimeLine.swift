@@ -21,7 +21,7 @@ extension EditTimeLine {
             Spacer()
             Button("完成", action: {
                 let timeline = TimeLine(
-                    id: UUID(),
+                    id: timeLineId,
                     name: self.lineTitle,
                     icon: Icon(emoji: self.emoji),
                     create: Date(),
@@ -70,6 +70,8 @@ struct EditTimeLine:View {
     @Binding var state:Bool
     
     var close:()-> Void
+    
+    @State private var timeLineId:UUID = UUID()
     @State private var lineTitle:String = ""
     @State private var emoji:String = "🗒️"
     @FocusState var focusedInput: String?
@@ -84,6 +86,16 @@ struct EditTimeLine:View {
                 Spacer()
             }
             .padding(.horizontal)
+        }.onAppear(){
+            if let line = self.projectModel.editTimeLIne{
+                lineTitle = line.name
+                emoji = line.icon.rawvalue
+                timeLineId = line.id
+            }
+            
+        }
+        .onDisappear(){
+            self.projectModel.clearEdit()
         }
     }
 }

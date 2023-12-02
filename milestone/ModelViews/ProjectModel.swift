@@ -20,6 +20,14 @@ final class ProjectManageModel:ObservableObject {
         
     }
     
+    func setTop(id:UUID,val: Bool){
+        var project = getProject(id: id)
+        project?.isTop = val
+        if(project != nil){
+            self.update(project: project!)
+        }
+    }
+    
     func fetch(){
         self.projects = service.findAll()
     }
@@ -51,7 +59,7 @@ final class ProjectManageModel:ObservableObject {
 }
 
 
-class ProjectModel:ObservableObject {
+class ProjectModel: ObservableObject {
     @Published var project: Project?
     @Published var isLoading: Bool = false
     @Published var current:UUID?
@@ -68,11 +76,26 @@ class ProjectModel:ObservableObject {
     
     private var nodeService = NodeService()
     
+    func setOrder(order: SortOption){
+        project?.sort = order;
+        project?.timeLines[currentIndex].setOrder(order:order)
+    }
+    
     func initEditNode(node:LineNode){
         editNode = node
     }
     func initEditNode(type:NodeType){
         editNode = LineNode(title: "", type: type, create: Date(), update: Date())
+        editNode!.isEdit = true
+    }
+    
+    func initEditTimeline(line:TimeLine){
+        editTimeLIne = line
+    }
+    
+    func initEditTimeline(){
+        editTimeLIne = TimeLine(id: UUID(), name: "", icon: Icon(emoji: "🗒️"), create: Date(), update: Date())
+        editTimeLIne!.isEdit = true
     }
     
     
@@ -154,9 +177,13 @@ class ProjectModel:ObservableObject {
         return false
     }
     
+    func isShowGap(nodeId:UUID)->Bool {
+        return timeLine?.gapNode(nodeId: nodeId,order: project?.sort) ?? false
+    }
+    
     func addTimeLine(timeLine:TimeLine){
         if let projectId = project?.id {
-            timelineService.add(timeline: timeLine, belongId: projectId)
+            timelineService.createOrUpdate(line: timeLine, belongId: projectId)
             self.fetch()
             self.current = timeLine.id
         }
@@ -182,6 +209,9 @@ class ProjectModel:ObservableObject {
             self.fetch()
         }
     }
+    
+
+    
     func switchTab(type: String){
         if(type == "next") {
             self.current =  self.project?.next(id: self.current)?.id
@@ -189,5 +219,16 @@ class ProjectModel:ObservableObject {
         if(type == "last"){
             self.current =  self.project?.last(id: self.current)?.id
         }
+    }
+    
+    func updateNode(node:LineNode){
+        nodeService.update(node: node)
+        self.fetch()
+    }
+    
+    
+    func moveNode(node:LineNode,belongId:UUID?){
+        nodeService.move(node: node, belongId: timeLines.last!.id)
+        self.fetch()
     }
 }

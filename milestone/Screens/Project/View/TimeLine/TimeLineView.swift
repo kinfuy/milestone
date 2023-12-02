@@ -41,18 +41,15 @@ extension TimeLineView {
     var LineContentView: some View {
         VStack(alignment: .leading,spacing: 0){
             if(projectModel.timeLine != nil && projectModel.timeLine!.isHasNodes){
-                Text("2023年")
-                .font(.title3).fontWeight(.bold)
-                .foregroundColor(Color("BlueColor"))
-                .padding(.horizontal)
+                if(project.sort == .asc){
+                    Text("2023")
+                    .font(.title3).fontWeight(.bold)
+                    .foregroundColor(Color("BlueColor"))
+                    .padding(.horizontal)
+                }
                 ScrollView(content: {
                     VStack(alignment: .leading, spacing: 0){
-                        ForEach(projectModel.timeLine!.nodes) { node in
-//                            Text("\(node.create.month())月")
-//                                .fontWeight(.bold)
-//                                .foregroundColor(Color("BlueColor"))
-//                                .padding(.leading,2)
-                            LineNodeView(node: node)
+                        ForEach(projectModel.timeLine!.nodes,id:\.self) { node in LineNodeView(node: node )
                         }
                     }
                     .padding(.horizontal)
@@ -66,13 +63,14 @@ extension TimeLineView {
 
 
 struct TimeLineView: View {
-    @EnvironmentObject var projectManagetModel: ProjectManageModel
-    @StateObject var projectModel: ProjectModel = ProjectModel()
+    @EnvironmentObject var projectManageModel: ProjectManageModel
+    @EnvironmentObject var projectModel: ProjectModel
     @State var project: Project
     
     @GestureState var offset:CGFloat = 0
     @State var sheetStatus = false
     
+    @State var timelineEdit = false
     
     func currentWidth(width:CGFloat) -> CGFloat {
         if(projectModel.total == 1) { return width }
@@ -108,6 +106,10 @@ struct TimeLineView: View {
         return index - projectModel.currentIndex;
     }
 
+    
+    func close() {
+        self.timelineEdit = false
+    }
     
     var body:some View {
         GeometryReader(content: { geometry in
@@ -155,11 +157,24 @@ struct TimeLineView: View {
                                         .cornerRadius(8)
                                         .contextMenu(menuItems: {
                                             Button(action: {
+                                                self.timelineEdit=true
+                                                self.projectModel.initEditTimeline(line: line)
+                                            }) {
+                                                Text("编辑")
+                                            }
+                                            Button(action: {
                                                 self.projectModel.deleteTimeline(id: line.id)
                                             }) {
                                                 Text("删除")
                                             }
                                         })
+                                        .sheet(isPresented: self.$timelineEdit){
+                                            EditTimeLine(
+                                                state: self.$timelineEdit,
+                                                close: close
+                                            )
+                                        }
+                                        .environmentObject(projectModel)
                                         
                                         .shadow(
                                             color:
@@ -203,19 +218,9 @@ struct TimeLineView: View {
                 AddView
             }
         })
-        .onAppear {
-            projectManagetModel.setCurrent(id: project.id)
-            if (projectModel.project == nil) {
-                projectModel.initProject(project: projectManagetModel.currentProject)
-            }
-        }
-        
     }
     
     
 }
 
-//#Preview {
-//    TimeLineView()
-//}
 

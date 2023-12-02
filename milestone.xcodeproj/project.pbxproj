@@ -316,6 +316,8 @@
 			dependencies = (
 			);
 			name = milestone;
+			packageProductDependencies = (
+			);
 			productName = milestone;
 			productReference = F22BDBE22AAA1753000A0412 /* milestone.app */;
 			productType = "com.apple.product-type.application";
@@ -345,6 +347,8 @@
 				"zh-Hans",
 			);
 			mainGroup = F22BDBD92AAA1753000A0412;
+			packageReferences = (
+			);
 			productRefGroup = F22BDBE32AAA1753000A0412 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

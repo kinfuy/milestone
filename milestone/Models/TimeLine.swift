@@ -13,7 +13,7 @@ import CoreData
 
 
 
-struct TimeLine:Identifiable,Codable {
+struct TimeLine:Identifiable, Codable {
     var id: UUID
     var name:String
     var icon: Icon
@@ -21,6 +21,8 @@ struct TimeLine:Identifiable,Codable {
     var milestone:[Milestone] = []
     var create:Date
     var update:Date
+    
+    var isEdit = false
     
     var isHasNodes:Bool {
         return !nodes.isEmpty
@@ -50,10 +52,46 @@ struct TimeLine:Identifiable,Codable {
             id: timeLine.id!,
             name: timeLine.name!,
             icon: Icon(emoji: timeLine.icon!),
-            nodes: nodes.map({LineNode.from(node:$0)}).sorted { $0.create < $1.create },
+            nodes: nodes.map({LineNode.from(node:$0)}).sorted { $0.create > $1.create },
             create: timeLine.create ?? Date(),
             update: timeLine.update ?? Date()
         )
         return t
+    }
+    
+    func gapNode(nodeId:UUID,order:SortOption? = .asc)->Bool{
+        if let idx = nodes.firstIndex(where: {$0.id == nodeId}) {
+            if(order == .asc){
+                if(idx == 0) {
+                    return true
+                }
+                if(idx == nodes.count) {
+                    return true
+                }
+                if(idx-1 > 0){
+                    return nodes[idx-1].create.day() != nodes[idx].create.day()
+                }
+            }
+            else {
+                if(idx == nodes.count - 1){
+                    return true
+                }
+                if(idx+1 < nodes.count){
+                    return nodes[idx+1].create.day() != nodes[idx].create.day()
+                }
+                
+            }
+            
+        }
+        return false
+    }
+    
+    mutating func setOrder(order:SortOption){
+        if(order == .asc){
+            self.nodes.sort(by: {$0.create < $1.create})
+        }else{
+            self.nodes.sort(by: {$0.create > $1.create})
+        }
+       
     }
 }

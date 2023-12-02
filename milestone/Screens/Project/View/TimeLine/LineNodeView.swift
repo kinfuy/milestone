@@ -21,8 +21,6 @@ extension LineNodeView {
                     if let content = node.content{
                         Text(content).font((.system(size: 16))).foregroundColor(.gray)
                     }
-                    Text(MMDDHHMM.string(from: node.create))
-                        .font(.caption)
                 }
                 Spacer()
             }
@@ -32,48 +30,58 @@ extension LineNodeView {
     }
     
     struct TaskNode: View {
+        @EnvironmentObject var projectModel: ProjectModel
         @State var node:LineNode
         var body:some View {
-            HStack{
-                VStack(alignment: .leading,spacing: 0){
-                    Text(node.title).font((.system(size: 18)))
-                    if let content = node.content{
-                        Text(content)
-                            .font((.system(size: 16)))
-                            .foregroundColor(.gray)
+            VStack{
+                HStack{
+                    VStack(alignment: .leading,spacing: 0){
+                        Text(node.title).font((.system(size: 18)))
+                        Spacer()
+                        if let content = node.content{
+                            Text(content)
+                                .font((.system(size: 16)))
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                        HStack{
+                            Text("任务")
+                                .lineTag(color:Color("BlueColor"))
+                            if(node.status == .complete) {
+                                Text(node.status.text).lineTag(color:Color("GreenColor"))
+                            }
+                            if let remainder = node.remainder {
+                                Text(remainder)
+                                    .lineTag(color:Color("GreenColor"))
+                            }
+                        }
                     }
                     Spacer()
-                    Text(MMDDHHMM.string(from: node.create))
-                        .font(.caption)
+                }
+                .padding(.leading, 12)
+                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
+                .background(Color("WriteColor"))
+                .cornerRadius(8)
+                HStack{
                     Spacer()
                     HStack{
-                        Text("任务")
-                            .lineTag(color:Color("BlueColor"))
-                        if let remainder = node.remainder {
-                            
-                            Text(remainder)
-                                .lineTag(color:Color("GreenColor"))
+                        if(node.status.canCompleted){
+                            HStack(spacing: 4){
+                                Button("完成", action: {
+                                    node.status = .complete
+                                    projectModel.updateNode(node: node)
+                                })
+                            }.padding(.horizontal,12)
+                                .padding(.vertical,6)
+                                .background(Color("BlueColor").opacity(0.1))
+                                .cornerRadius(8)
                         }
                     }
                 }
-                Spacer()
-                VStack{
-                    if(node.status.canCompleted){
-                        HStack(spacing: 4){
-                            Button("完成", action: {})
-                        }.padding(.horizontal,12)
-                            .padding(.vertical,6)
-                            .background(Color("BlueColor").opacity(0.1))
-                            .cornerRadius(8)
-                    }
-                    
-                }
             }
-            .padding(.horizontal)
+            .padding(.leading, 12)
             .padding(.vertical, 10)
-            .frame(maxWidth: .infinity)
-            .background(Color("WriteColor"))
-            .cornerRadius(8)
         }
     }
     
@@ -98,11 +106,14 @@ extension LineNodeView {
                     Spacer()
                 }
             }
-            .padding(.horizontal)
+            .padding(.leading, 12)
             .padding(.vertical, 10)
             .frame(maxWidth: .infinity)
             .background(Color("WriteColor"))
             .cornerRadius(8)
+            .padding(.leading, 12)
+            .padding(.vertical, 10)
+            
         }
     }
     
@@ -123,8 +134,12 @@ extension LineNodeView {
                     NaggingNode(node: node)
                 case .task:
                     TaskNode(node: node)
+              
                 default:
-                    Text("全新节点请更新版本查看").card()
+                    HStack{
+                        Text("全新节点请更新版本查看").card()
+                        Spacer()
+                    }
                 }
             }
             .contextMenu(menuItems: {
@@ -133,6 +148,19 @@ extension LineNodeView {
                     self.editStatus.toggle()
                 }) {
                     Text("编辑")
+                }
+                Button(action: {
+                    self.projectModel.moveNode(node: node,belongId: nil)
+                }) {
+                    Text("移动")
+                }
+                if( node.status == .complete){
+                    Button(action: {
+                        node.status = .progress
+                        projectModel.updateNode(node: node)
+                    }) {
+                        Text("重启任务")
+                    }
                 }
                 Button(action: {
                     self.projectModel.deleteNode(id: node.id)
@@ -147,7 +175,6 @@ extension LineNodeView {
                 )
             }
             .environmentObject(projectModel)
-            .padding(.top)
         }
     }
 }
@@ -161,14 +188,23 @@ struct LineNodeView: View {
     var body: some View {
         HStack{
             HStack{
-                LineView(width: 4)
+                LineView(width: 2)
                 VStack(alignment: .leading){
+                    HStack{
+                        Group{
+                            SFSymbol.time
+                            Text(MMDDHHMM.string(from: node.create))
+                        }
+                        .font(.caption)
+                        .foregroundColor(Color("Gray2"))
+                    }
+                    .padding(.leading, 12)
                     NodeView(node: node)
                 }
+                .padding(.top)
                 
             }
-            .padding(.leading, 16)
-            Spacer()
+            .padding(.leading)
         }
         
     }

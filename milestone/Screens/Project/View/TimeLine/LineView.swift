@@ -11,7 +11,7 @@ import SwiftUI
 struct LineView: View {
     @State var width:CGFloat = 12
     @State var height:CGFloat = .infinity
-    @State var color:Color = Color("BlueColor")
+    @State var color:Color = Color("LineColor")
     var body: some View {
         Rectangle()
             .fill(color)

@@ -73,9 +73,9 @@ extension EditProejct {
                     self.projectModel.project?.iconColor = self.projectColor
                     self.projectModel.project?.tags = self.tagManage.tags
                     if(projectModel.isEdit){
-                        projectManagetModel.update(project: self.projectModel.project!)
+                        projectManageModel.update(project: self.projectModel.project!)
                     }else{
-                        projectManagetModel.add(project: self.projectModel.project!)
+                        projectManageModel.add(project: self.projectModel.project!)
                     }
                     
                     self.$state.wrappedValue.toggle()
@@ -184,7 +184,7 @@ extension EditProejct {
 }
 
 struct EditProejct: View {
-    @EnvironmentObject var projectManagetModel: ProjectManageModel
+    @EnvironmentObject var projectManageModel: ProjectManageModel
     @Binding var state:Bool
     
     @StateObject private var projectModel: ProjectModel = ProjectModel()
@@ -230,7 +230,7 @@ struct EditProejct: View {
         }
         .onAppear {
             if (projectModel.project == nil) {
-                projectModel.initProject(project: projectManagetModel.currentProject)
+                projectModel.initProject(project: projectManageModel.currentProject)
                 if let project = projectModel.project {
                     self.name = project.name
                     self.emoji = project.icon

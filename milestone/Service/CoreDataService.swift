@@ -41,8 +41,9 @@ class ProjectService: Service {
         do {
             self.refresh()
             let request = NSFetchRequest<ProjectEntity>(entityName: "ProjectEntity")
-            let sortDescriptor = NSSortDescriptor(key: "create", ascending: true)
-            request.sortDescriptors = [sortDescriptor]
+            let sortDescriptor = NSSortDescriptor(key: "create", ascending: false)
+            let sortTop = NSSortDescriptor(key: "isTop", ascending: false)
+            request.sortDescriptors = [sortTop,sortDescriptor]
             let projectEntity =  try container.viewContext.fetch(request)
             self.projectEntitys = projectEntity
             if projectEntity.isEmpty {
@@ -72,6 +73,7 @@ class ProjectService: Service {
         projectEntity.iconColor = project.iconColor.toHex
         projectEntity.icon = project.icon
         projectEntity.tags = NSSet(array: project.tags.map({$0.into(context: self.container.viewContext)}))
+        projectEntity.isTop = project.isTop
 //        projectEntity.timelines = NSSet(array: project.timeLines.map({$0.into(context: self.container.viewContext)}))
         return projectEntity
     }
@@ -175,6 +177,30 @@ class TimeLineService:Service {
         
     }
     
+    func isExit(id:UUID)->TimeLineEntity? {
+        let request = NSFetchRequest<TimeLineEntity>(entityName: "TimeLineEntity")
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(format: "id = \"\(id)\"")
+       
+        guard let timeLineEntity = try? self.container.viewContext.fetch(request).first else { return nil }
+        return timeLineEntity
+    }
+    
+    func createOrUpdate(line: TimeLine, belongId:UUID?){
+        let lineEntity = self.isExit(id: line.id)
+        if let lineEntity = lineEntity {
+            lineEntity.name = line.name
+            lineEntity.update = Date()
+            lineEntity.icon = line.icon.rawvalue
+            if self.container.viewContext.hasChanges {
+                self.save()
+            }
+        }
+        else if let id = belongId {
+            self.add(timeline: line, belongId: id)
+        }
+    }
+    
     func delete(id: UUID){
         let request = NSFetchRequest<TimeLineEntity>(entityName: "TimeLineEntity")
         request.predicate = NSPredicate(format: "id = \"\(id)\"")
@@ -253,6 +279,22 @@ class NodeService:Service {
             self.add(node: node, belongId: id)
         }
     }
+    
+    
+    func update(node:LineNode){
+        let nodeEntity = self.isExit(id: node.id)
+        if let nodeEntity = nodeEntity {
+            nodeEntity.content = node.content
+            nodeEntity.update = Date()
+            nodeEntity.title = node.title
+            nodeEntity.startTime = node.startTime
+            nodeEntity.endTime = node.endTime
+            nodeEntity.status = node.status.rawValue
+            if self.container.viewContext.hasChanges {
+                self.save()
+            }
+        }
+    }
 
     
     func add(node:LineNode,belongId:UUID) {
@@ -273,6 +315,21 @@ class NodeService:Service {
             n.status = node.status.rawValue
             n.belong = timeLine
             self.save()
+        }
+    }
+    
+    func move(node:LineNode,belongId:UUID){
+        let request = NSFetchRequest<TimeLineEntity>(entityName: "TimeLineEntity")
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(format: "id = \"\(belongId)\"")
+        if let timeLine = try? self.container.viewContext.fetch(request).first {
+            let nodeEntity = self.isExit(id: node.id)
+            if let nodeEntity = nodeEntity {
+                nodeEntity.belong = timeLine
+                if self.container.viewContext.hasChanges {
+                    self.save()
+                }
+            }
         }
     }
     func delete(id: UUID){

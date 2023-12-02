@@ -39,6 +39,12 @@ enum SFSymbol:String, Codable {
     case signpost = "signpost.right.and.left"
     case calendar = "calendar.badge.clock"
     case sort = "list.bullet.indent"
+    case check = "checkmark"
+    case up = "arrow.up.to.line"
+    case down = "arrow.down.to.line"
+    case edit = "square.and.pencil"
+    case pin = "pin"
+    case unpin = "pin.slash"
 }
 
 extension SFSymbol: View {
