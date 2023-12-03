@@ -153,19 +153,20 @@ struct ProjectView: View {
     @State var rightSliding: UUID?
     
     @State private var isActives: [Bool] = []
-    
+    @State private var comfirm:Bool = false
     
     func open(val:Bool){
         self.sheetStatus = val
     }
     
+    var canReander:Bool {
+        return isActives.count == projectManageModel.projects.count
+    }
+    
     var body: some View {
         VStack(content: {
             NavHeader
-            if(projectManageModel.projects.count==0){
-                EmptyView
-                Spacer()
-            }else if(isActives.count > 0 ){
+            if(canReander){
                 ScrollView(content: {
                     ForEach(projectManageModel.projects){ item in
                         NavigationLink(
@@ -174,7 +175,7 @@ struct ProjectView: View {
                              isActive: $isActives[projectManageModel.projects.firstIndex(of: item)!],
                              label: {
                                 ProjectCard(
-                                    project:item,rightSliding: $rightSliding, sheetStatus: $sheetStatus)
+                                    project:item,rightSliding: $rightSliding, sheetStatus: $sheetStatus, comfirm:$comfirm)
                                      .environmentObject(projectManageModel)
                                 .contextMenu(menuItems: {
                                     Button(action: {
@@ -198,12 +199,10 @@ struct ProjectView: View {
                                     }
                                 
                                     Button(action: {
-                                        projectManageModel.delete(id: item.id)
+                                        self.comfirm.toggle()
                                     }) {
                                         Text("删除")
                                     }
-                                    
-                                    
                                 })
                                 .padding([.leading,.trailing],20)
                                 .onTapGesture {
@@ -214,6 +213,22 @@ struct ProjectView: View {
                                 }
                           }
                         )
+                        .alert(isPresented: self.$comfirm){
+                            Alert(title:Text("删除项目"),
+                                  message: Text("删除后无法恢复，是否继续？"),
+                                  primaryButton: .default(
+                                    Text("取消")
+                                  ),
+                                  secondaryButton: .destructive(
+                                    Text("删除"),
+                                    action: {
+                                        projectManageModel.delete(id: item.id)
+                                        rightSliding = nil
+                                   }
+                                )
+                                
+                            )
+                        }
                         .sheet(isPresented: self.$editSheetStatus, content: {
                             EditProejct(
                                 state: self.$editSheetStatus
@@ -228,6 +243,13 @@ struct ProjectView: View {
                     }
                 })
                 .animation(.spring, value: projectManageModel.projects)
+            }else {
+                EmptyView
+                    .onAppear(){
+                        // 动态创建isActives数组，和items数目保持一致
+                        isActives = Array(repeating: false, count: projectManageModel.projects.count)
+                    }
+                Spacer()
             }
             
         })

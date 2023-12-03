@@ -63,6 +63,8 @@ extension ProjectView {
             project.isTop ? SFSymbol.unpin : SFSymbol.pin
         }
         
+        @Binding var comfirm:Bool
+        
         var body: some View {
             ZStack{
                 HStack{
@@ -175,10 +177,8 @@ extension ProjectView {
                             Text("删除").font(.caption2).foregroundColor(.gray)
                         }
                         .onTapGesture {
-                            projectManageModel.delete(id: project.id)
-                            rightSliding = nil
+                            comfirm.toggle()
                         }
-                        .padding(.leading, 4)
                   }
                 }
             }

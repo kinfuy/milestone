@@ -136,10 +136,14 @@ extension LineNodeView {
                     TaskNode(node: node)
               
                 default:
-                    HStack{
-                        Text("全新节点请更新版本查看").card()
-                        Spacer()
+                    VStack{
+                        NaggingNode(node: node)
+                        HStack{
+                            Text("全新节点请更新版本查看").card()
+                            Spacer()
+                        }
                     }
+                   
                 }
             }
             .contextMenu(menuItems: {

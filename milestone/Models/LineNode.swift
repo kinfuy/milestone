@@ -15,8 +15,8 @@ enum NodeType: String,Identifiable, CaseIterable, Codable{
     case milestone = "里程碑"
     case subscribe = "订阅"
     case count = "纪念日"
-//    case travel = "旅游"
-//    case traffic = "交通"
+   case travel = "旅游"
+   case traffic = "交通"
     case unowned = "未知"
     
     var icon: SFSymbol {
@@ -27,12 +27,12 @@ enum NodeType: String,Identifiable, CaseIterable, Codable{
             return SFSymbol.message
         case .task:
             return SFSymbol.clock
-//        case .travel:
-//            return SFSymbol.signpost
+       case .travel:
+           return SFSymbol.signpost
         case .subscribe:
             return SFSymbol.cart
-//        case .traffic:
-//            return SFSymbol.airplane
+       case .traffic:
+           return SFSymbol.airplane
         case .count:
             return SFSymbol.calendar
         default:
@@ -59,10 +59,10 @@ enum NodeType: String,Identifiable, CaseIterable, Codable{
             return "记录任务的节点"
         case .subscribe:
             return "订阅节点"
-//        case .travel:
-//            return "地标打卡"
-//        case .traffic:
-//            return "交通工具"
+       case .travel:
+           return "地标打卡"
+       case .traffic:
+           return "交通工具"
         case .count:
             return "重要日子"
             
