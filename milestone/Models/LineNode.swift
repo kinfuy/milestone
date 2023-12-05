@@ -85,7 +85,7 @@ enum NodeStatus: String, CaseIterable, Codable {
     }
     
     var canCompleted: Bool {
-        return self != .complete
+        return self != .complete && self != .expire
     }
 }
 
@@ -103,6 +103,35 @@ struct LineNode:Identifiable, Hashable, Codable {
     var isEdit:Bool = false
     
     var belong:UUID?
+
+    var diffEndTime:String?
+    
+    var holdTime:String?
+    
+    var needTip:Bool = false
+    
+    
+    mutating func updateDiff(){
+        if let end = self.endTime {
+            let diff = DateClass.dateDifference(end, from: Date())
+            if(diff > 0){
+                self.diffEndTime =  "剩余\(Int32(diff.rounded()))天"
+                if(diff < 3) {
+                    self.needTip = true
+                }
+            }else{
+                if(self.status != .complete){
+                    self.status = .expire
+                }
+                
+            }
+        }
+    }
+    
+    
+    mutating func initStatus(){
+        self.updateDiff()
+    }
     
     func into(context:NSManagedObjectContext)->NodeEntity{
         let node =  NodeEntity(context: context)
@@ -133,13 +162,5 @@ struct LineNode:Identifiable, Hashable, Codable {
         )
         return node
         
-    }
-    
-    var remainder:String? {
-        if let end = self.endTime {
-            return DateClass.compareCurrentTime(time: end)
-        }
-        return nil
-       
     }
 }

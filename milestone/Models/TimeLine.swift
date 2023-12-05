@@ -52,7 +52,12 @@ struct TimeLine:Identifiable, Codable {
             id: timeLine.id!,
             name: timeLine.name!,
             icon: Icon(emoji: timeLine.icon!),
-            nodes: nodes.map({LineNode.from(node:$0)}).sorted { $0.create > $1.create },
+            nodes: nodes.map({
+                var node = LineNode.from(node:$0)
+                node.initStatus()
+                return node
+                
+            }).sorted { $0.create > $1.create },
             create: timeLine.create ?? Date(),
             update: timeLine.update ?? Date()
         )

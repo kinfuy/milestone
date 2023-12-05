@@ -50,9 +50,13 @@ extension LineNodeView {
                             if(node.status == .complete) {
                                 Text(node.status.text).lineTag(color:Color("GreenColor"))
                             }
-                            if let remainder = node.remainder {
-                                Text(remainder)
-                                    .lineTag(color:Color("GreenColor"))
+                            if(node.status == .expire) {
+                                Text(node.status.text).lineTag(color:Color.gray)
+                            }
+                            if let diffEndTime = node.diffEndTime {
+                                Text(diffEndTime)
+                                    .lineTag(color: node.needTip
+                                             ? Color.red.opacity(0.6) : Color("GreenColor"));
                             }
                         }
                     }
@@ -70,6 +74,7 @@ extension LineNodeView {
                             HStack(spacing: 4){
                                 Button("完成", action: {
                                     node.status = .complete
+                                    node.endTime = Date()
                                     projectModel.updateNode(node: node)
                                 })
                             }.padding(.horizontal,12)
@@ -138,7 +143,7 @@ extension LineNodeView {
                     NaggingNode(node: node)
                 case .task:
                     TaskNode(node: node)
-              
+                    
                 default:
                     VStack{
                         NaggingNode(node: node)
@@ -147,7 +152,7 @@ extension LineNodeView {
                             Spacer()
                         }
                     }
-                   
+                    
                 }
             }
             .contextMenu(menuItems: {
@@ -163,9 +168,10 @@ extension LineNodeView {
                 }) {
                     Text("移动")
                 }
-                if( node.status == .complete){
+                if(node.status == .complete || node.status == .expire){
                     Button(action: {
                         node.status = .progress
+                        node.endTime = Calendar.current.date(byAdding: .day, value: 3, to: Date())!
                         projectModel.updateNode(node: node)
                     }) {
                         Text("重启任务")

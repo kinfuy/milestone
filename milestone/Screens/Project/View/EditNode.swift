@@ -89,7 +89,7 @@ extension EditNode {
                 switch self.projectModel.editNode?.type {
                 case .task:
                     DatePicker("开始时间", selection: $start)
-                    DatePicker("开始时间", selection: $end)
+                    DatePicker("结束时间", selection: $end)
                 default:
                     EmptyView()
                 }
