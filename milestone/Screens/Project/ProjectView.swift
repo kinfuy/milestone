@@ -92,6 +92,15 @@ struct ProjectDeatilView:View {
         })
         )
         .navigationBarItems(trailing: Menu(content: {
+//            Button(action: {
+//               
+//            }, label: {
+//                VStack{
+//                    Text("总览")
+//                    Spacer()
+//                    SFSymbol.sort
+//                }
+//            })
             Button(action: {
                 projectModel.setOrder(order: .asc)
             }, label: {
@@ -99,24 +108,6 @@ struct ProjectDeatilView:View {
                     Text("排序")
                     Spacer()
                     SFSymbol.sort
-                }
-            })
-            Button(action: {
-                projectModel.setOrder(order: .desc)
-            }, label: {
-                VStack{
-                    Text("正序")
-                    Spacer()
-                    SFSymbol.down
-                }
-            })
-            Button(action: {
-                
-            }, label: {
-                VStack{
-                    Text("倒序")
-                    Spacer()
-                    SFSymbol.up
                 }
             })
             Button(action: {
@@ -163,6 +154,7 @@ struct ProjectView: View {
         return isActives.count == projectManageModel.projects.count
     }
     
+    @State var deleteTips:String = ""
     var body: some View {
         VStack(content: {
             NavHeader
@@ -175,8 +167,12 @@ struct ProjectView: View {
                              isActive: $isActives[projectManageModel.projects.firstIndex(of: item)!],
                              label: {
                                 ProjectCard(
-                                    project:item,rightSliding: $rightSliding, sheetStatus: $sheetStatus, comfirm:$comfirm)
-                                     .environmentObject(projectManageModel)
+                                    project:item,
+                                    rightSliding: $rightSliding,
+                                    sheetStatus: $sheetStatus,
+                                    comfirm:$comfirm,
+                                    deleteTips:$deleteTips
+                                ).environmentObject(projectManageModel)
                                 .contextMenu(menuItems: {
                                     Button(action: {
                                         projectManageModel.setCurrent(id: item.id)
@@ -200,6 +196,7 @@ struct ProjectView: View {
                                 
                                     Button(action: {
                                         self.comfirm.toggle()
+                                        self.deleteTips = item.name
                                     }) {
                                         Text("删除")
                                     }
@@ -214,8 +211,8 @@ struct ProjectView: View {
                           }
                         )
                         .alert(isPresented: self.$comfirm){
-                            Alert(title:Text("删除项目"),
-                                  message: Text("删除后无法恢复，是否继续？"),
+                            Alert(title:Text("删除《\(self.deleteTips)》"),
+                                  message: Text("删除项目将删除相关所有内容，是否继续？"),
                                   primaryButton: .default(
                                     Text("取消")
                                   ),
@@ -224,6 +221,7 @@ struct ProjectView: View {
                                     action: {
                                         projectManageModel.delete(id: item.id)
                                         rightSliding = nil
+                                        deleteTips = ""
                                    }
                                 )
                                 

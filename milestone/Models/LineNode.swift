@@ -102,6 +102,8 @@ struct LineNode:Identifiable, Hashable, Codable {
     
     var isEdit:Bool = false
     
+    var belong:UUID?
+    
     func into(context:NSManagedObjectContext)->NodeEntity{
         let node =  NodeEntity(context: context)
         node.id = self.id
@@ -126,7 +128,8 @@ struct LineNode:Identifiable, Hashable, Codable {
             content: node.content,
             startTime: node.startTime ?? nil,
             endTime: node.endTime ?? nil,
-            status: NodeStatus(rawValue: node.status ?? "未知") ?? .unowned
+            status: NodeStatus(rawValue: node.status ?? "未知") ?? .unowned,
+            belong: node.belong?.id
         )
         return node
         

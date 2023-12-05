@@ -119,11 +119,15 @@ extension LineNodeView {
     
     struct NodeView:View {
         @EnvironmentObject var projectModel: ProjectModel
+        @EnvironmentObject var projectManageModel:ProjectManageModel
         @State var node:LineNode
         @State var editStatus = false
         
+        @State var moveStatus = false
+        
         func close (){
             editStatus = false
+            moveStatus = false
         }
         var body: some View {
             HStack{
@@ -154,7 +158,8 @@ extension LineNodeView {
                     Text("编辑")
                 }
                 Button(action: {
-                    self.projectModel.moveNode(node: node,belongId: nil)
+                    self.projectModel.initEditNode(node: node)
+                    self.moveStatus = true
                 }) {
                     Text("移动")
                 }
@@ -172,6 +177,11 @@ extension LineNodeView {
                     Text("删除")
                 }
             })
+            .sheet(isPresented: $moveStatus, content: {
+                NodeSort(state: self.$moveStatus, close: close)
+            })
+            .environmentObject(projectModel)
+            .environmentObject(projectManageModel)
             .sheet(isPresented: self.$editStatus){
                 EditNode(
                     state: self.$editStatus,

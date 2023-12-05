@@ -64,6 +64,7 @@ extension ProjectView {
         }
         
         @Binding var comfirm:Bool
+        @Binding var deleteTips:String
         
         var body: some View {
             ZStack{
@@ -155,7 +156,7 @@ extension ProjectView {
                             projectManageModel.setTop(id: project.id, val: !project.isTop)
                             rightSliding = nil
                         }
-                        .padding(.leading, 4)
+                        .padding(.trailing, 4)
                         VStack{
                             SFSymbol.edit.foregroundColor(.white)
                                 .padding(6)
@@ -168,7 +169,7 @@ extension ProjectView {
                             sheetStatus.toggle()
                             rightSliding = nil
                         }
-                        .padding(.leading, 4)
+                        .padding(.trailing, 4)
                         VStack{
                             SFSymbol.delete.foregroundColor(.white)
                                 .padding(6)
@@ -178,6 +179,7 @@ extension ProjectView {
                         }
                         .onTapGesture {
                             comfirm.toggle()
+                            deleteTips = project.name
                         }
                   }
                 }

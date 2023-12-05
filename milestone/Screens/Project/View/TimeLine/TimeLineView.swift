@@ -55,6 +55,7 @@ extension TimeLineView {
                     .padding(.horizontal)
                 })
                 .environmentObject(projectModel)
+                .environmentObject(projectManageModel)
             }
             
         }

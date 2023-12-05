@@ -227,8 +227,31 @@ class ProjectModel: ObservableObject {
     }
     
     
-    func moveNode(node:LineNode,belongId:UUID?){
-        nodeService.move(node: node, belongId: timeLines.last!.id)
-        self.fetch()
+    func moveNode(node:LineNode, belongId:UUID){
+        if let belong  =  node.belong {
+            if(belong != belongId){
+                nodeService.move(node: node, belongId: belongId)
+                self.fetch()
+            }
+           
+        }
+       
+    }
+    
+    func getNode(id:UUID)-> LineNode? {
+       return timeLine?.nodes.first(where: {$0.id == id})
+    }
+    
+    func moveNode(nodeId:UUID, belongId:UUID){
+        if let node = self.getNode(id:nodeId) {
+            if let belong  =  node.belong {
+                if(belong != belongId){
+                    nodeService.move(node: node, belongId: belongId)
+                    self.fetch()
+                }
+               
+            }
+            
+        }
     }
 }
