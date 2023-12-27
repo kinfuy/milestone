@@ -48,7 +48,7 @@ extension CardSelectView {
 extension CardSelectView {
     var NodeContentView:some View {
         VStack{
-            SecondTitleView(title: "节点树").foregroundColor(.secondary)
+            SecondTitleView(title: "卡片屋").foregroundColor(.secondary)
             LazyVGrid(columns: gridItemLayout, spacing: 20) {
                 ForEach(NodeType.list, id: \.rawValue, content: { item in
                     Cardview(icon: item.icon, title: item.text, desc: item.desc)
@@ -145,9 +145,9 @@ struct CardSelectView:View {
                 }
                 VStack{
                     SecondTitleView(title: "时间线").foregroundColor(.secondary)
+                        .padding(.vertical, 8)
                     VStack{
                         NormalLineView(state: self.$state)
-//                        CustomeView()
                     }
                 }
                 .padding(.horizontal)

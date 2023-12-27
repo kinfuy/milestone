@@ -1,5 +1,6 @@
 
 import SwiftUI
+import MCEmojiPicker
 
 extension EditTimeLine {
     struct TitleView:View {
@@ -39,17 +40,17 @@ extension EditTimeLine {
         VStack{
             TitleView(title: "时间线名称")
             VStack{
-                EmojiTextField(text: $emoji ,size: 42)
-                    .onChange(of: self.emoji){
-                        newValue in
-                        if(newValue.count>1){
-                            self.emoji = String(newValue.suffix(1))
-                        }
-                        if(!self.emoji.isEmoji){
-                            self.emoji = "🗒️"
-                        }
-                    }
-                    .frame(width: 48,height: 48)
+                Button(action: {
+                    isPresented.toggle()
+                }, label: {
+                    Text(emoji).font(.largeTitle)
+                }).emojiPicker(
+                    isPresented: $isPresented,
+                    selectedEmoji: $emoji
+                )
+                .padding()
+                .background(Color("BlueColor").opacity(0.1))
+                .cornerRadius(8)
                 Divider()
                 TextField("标题", text: self.$lineTitle)
                     .focused($focusedInput, equals: "nodeTitle" )
@@ -75,6 +76,8 @@ struct EditTimeLine:View {
     @State private var lineTitle:String = ""
     @State private var emoji:String = "🗒️"
     @FocusState var focusedInput: String?
+    
+    @State var isPresented = false
     var body: some View {
         ZStack{
             BgView()

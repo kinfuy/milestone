@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+import MCEmojiPicker
+import AlertToast
 
 extension EditProejct {
     struct TitleView:View {
@@ -80,6 +81,9 @@ extension EditProejct {
                     
                     self.$state.wrappedValue.toggle()
                 }
+                else {
+                    showToast = true
+                }
             })
         }
         .padding(.vertical)
@@ -92,16 +96,14 @@ extension EditProejct {
                 HStack{
                     VStack{
                         Spacer()
-                        EmojiTextField(text: $emoji ,size: 42)
-                            .onChange(of: self.emoji){
-                                newValue in
-                                if(newValue.count>1){
-                                    self.emoji = String(newValue.suffix(1))
-                                }
-                                if(!self.emoji.isEmoji){
-                                    self.emoji = "📖"
-                                }
-                            }
+                        Button(action: {
+                            isPresented.toggle()
+                        }, label: {
+                            Text(emoji).font(.largeTitle)
+                        }).emojiPicker(
+                            isPresented: $isPresented,
+                            selectedEmoji: $emoji
+                        )
                             .frame(width: 48,height: 48)
                             .padding(8)
                             .background(self.projectColor)
@@ -196,6 +198,8 @@ struct EditProejct: View {
     @State private var projectColor = Color("GreenColor")
     @State private var tagColor = Color("BlueColor")
     
+    @State private var isPresented = false
+    @State private var showToast = false
     
     
     
@@ -227,6 +231,9 @@ struct EditProejct: View {
                 Spacer()
             }
             .padding(.horizontal)
+        }
+        .toast(isPresenting: $showToast,offsetY: 30){
+            AlertToast(displayMode: .hud, type: .error(.red), title: "请完善项目信息")
         }
         .onAppear {
             if (projectModel.project == nil) {

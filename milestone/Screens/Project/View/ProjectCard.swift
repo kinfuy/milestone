@@ -13,6 +13,12 @@ let MMDDHHMM: DateFormatter = {
     return formatter
 }()
 
+let MMDD: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    return formatter
+}()
+
 let YYMMDDHHMM: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH:mm"

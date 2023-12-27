@@ -15,6 +15,7 @@
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="extra" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="nodeType" attributeType="String"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

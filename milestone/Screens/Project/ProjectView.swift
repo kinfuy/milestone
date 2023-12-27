@@ -151,10 +151,11 @@ struct ProjectView: View {
     }
     
     var canReander:Bool {
-        return isActives.count == projectManageModel.projects.count
+        return isActives.count == projectManageModel.projects.count && isActives.count != 0
     }
     
     @State var deleteTips:String = ""
+    
     var body: some View {
         VStack(content: {
             NavHeader
@@ -244,6 +245,7 @@ struct ProjectView: View {
             }else {
                 EmptyView
                     .onAppear(){
+                       
                         // 动态创建isActives数组，和items数目保持一致
                         isActives = Array(repeating: false, count: projectManageModel.projects.count)
                     }

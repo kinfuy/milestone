@@ -12,6 +12,7 @@
 		F217E0E02ACFD75C00013649 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F217E0DF2ACFD75C00013649 /* ToolView.swift */; };
 		F217E0E22ACFE9CB00013649 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F217E0E12ACFE9CB00013649 /* TagList.swift */; };
 		F22A29632ACD761A002D281A /* BgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A29622ACD761A002D281A /* BgView.swift */; };
+		F22AFDA62B28ACAA006113B1 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F22AFDA52B28ACAA006113B1 /* MCEmojiPicker */; };
 		F22BDBE62AAA1753000A0412 /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22BDBE52AAA1753000A0412 /* AppEntry.swift */; };
 		F22BDBE82AAA1753000A0412 /* ScreenManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22BDBE72AAA1753000A0412 /* ScreenManage.swift */; };
 		F22BDBF62AAD8ED8000A0412 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22BDBF52AAD8ED8000A0412 /* HomeView.swift */; };
@@ -32,6 +33,7 @@
 		F25577902AB59A3E00F71FE1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F255778F2AB59A3E00F71FE1 /* UserDefaults.swift */; };
 		F25577922AB5F13400F71FE1 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25577912AB5F13400F71FE1 /* NavHeader.swift */; };
 		F25577972AB9F84900F71FE1 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25577962AB9F84900F71FE1 /* TimeLineView.swift */; };
+		F25AD5EB2B29F88C00E11F60 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = F25AD5EA2B29F88C00E11F60 /* AlertToast */; };
 		F26DD12C2AED558F00DF9025 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26DD12A2AED558F00DF9025 /* CoreDataService.swift */; };
 		F285002D2B1E20500095B3A8 /* NodeSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F285002C2B1E20500095B3A8 /* NodeSort.swift */; };
 		F286D8F22ADED989005A10CA /* Bingding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F12ADED989005A10CA /* Bingding.swift */; };
@@ -45,7 +47,6 @@
 		F2A978082AD9A35000ABA274 /* ProjectCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A978072AD9A35000ABA274 /* ProjectCard.swift */; };
 		F2AA61132AB555DA003548D9 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA61122AB555DA003548D9 /* ProjectModel.swift */; };
 		F2AF6E282ADA2D94005CF762 /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AF6E272ADA2D94005CF762 /* IconModel.swift */; };
-		F2B1FEBF2AC06EBB0069961C /* EmjoyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B1FEBE2AC06EBB0069961C /* EmjoyText.swift */; };
 		F2BCCEA52AAF4FC2006FDBBA /* EditProejct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BCCEA42AAF4FC2006FDBBA /* EditProejct.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +90,6 @@
 		F2A978072AD9A35000ABA274 /* ProjectCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCard.swift; sourceTree = "<group>"; };
 		F2AA61122AB555DA003548D9 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		F2AF6E272ADA2D94005CF762 /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
-		F2B1FEBE2AC06EBB0069961C /* EmjoyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmjoyText.swift; sourceTree = "<group>"; };
 		F2BCCEA42AAF4FC2006FDBBA /* EditProejct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProejct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22AFDA62B28ACAA006113B1 /* MCEmojiPicker in Frameworks */,
+				F25AD5EB2B29F88C00E11F60 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +265,6 @@
 				F22BDBF82AAD8F46000A0412 /* Tabbar.swift */,
 				F255778C2AB5863000F71FE1 /* SFSymbol.swift */,
 				F25577912AB5F13400F71FE1 /* NavHeader.swift */,
-				F2B1FEBE2AC06EBB0069961C /* EmjoyText.swift */,
 				F22A29622ACD761A002D281A /* BgView.swift */,
 				F217E0E12ACFE9CB00013649 /* TagList.swift */,
 				F248157C2ADC195B001D9F45 /* ModelView.swift */,
@@ -320,6 +321,8 @@
 			);
 			name = milestone;
 			packageProductDependencies = (
+				F22AFDA52B28ACAA006113B1 /* MCEmojiPicker */,
+				F25AD5EA2B29F88C00E11F60 /* AlertToast */,
 			);
 			productName = milestone;
 			productReference = F22BDBE22AAA1753000A0412 /* milestone.app */;
@@ -351,6 +354,8 @@
 			);
 			mainGroup = F22BDBD92AAA1753000A0412;
 			packageReferences = (
+				F22AFDA42B28ACAA006113B1 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+				F25AD5E92B29F88C00E11F60 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = F22BDBE32AAA1753000A0412 /* Products */;
 			projectDirPath = "";
@@ -379,7 +384,6 @@
 			files = (
 				F217E0E22ACFE9CB00013649 /* TagList.swift in Sources */,
 				F286D8F22ADED989005A10CA /* Bingding.swift in Sources */,
-				F2B1FEBF2AC06EBB0069961C /* EmjoyText.swift in Sources */,
 				F285002D2B1E20500095B3A8 /* NodeSort.swift in Sources */,
 				F208EC3D2AC0037400C90ADB /* LaunchView.swift in Sources */,
 				F286D8F42AE022EE005A10CA /* emptyView.swift in Sources */,
@@ -634,6 +638,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F22AFDA42B28ACAA006113B1 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
+		F25AD5E92B29F88C00E11F60 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F22AFDA52B28ACAA006113B1 /* MCEmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F22AFDA42B28ACAA006113B1 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
+			productName = MCEmojiPicker;
+		};
+		F25AD5EA2B29F88C00E11F60 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F25AD5E92B29F88C00E11F60 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		F24815792ADBACB6001D9F45 /* ProjectDB.xcdatamodeld */ = {

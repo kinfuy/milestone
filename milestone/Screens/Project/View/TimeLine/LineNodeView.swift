@@ -99,8 +99,6 @@ extension LineNodeView {
                     if let content = node.content{
                         Text(content).font((.system(size: 16))).foregroundColor(.gray)
                     }
-                    Text(MMDDHHMM.string(from: node.create))
-                        .font(.caption)
                 }
                 Spacer()
                 VStack{
@@ -110,6 +108,80 @@ extension LineNodeView {
                     }
                     Spacer()
                 }
+            }
+            .padding(.leading, 12)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity)
+            .background(Color("WriteColor"))
+            .cornerRadius(8)
+            .padding(.leading, 12)
+            .padding(.vertical, 10)
+            
+        }
+    }
+    
+    
+    struct CountNode:View {
+        @State var node:LineNode
+        var body:some View {
+            HStack{
+                HStack{
+                    SFSymbol.moon
+                        .font(.system(size: 28))
+                        .foregroundColor(.white)
+                        .frame(width: 32,height: 32)
+                        .padding(8)
+                        .background(Color("PinkColor"))
+                        .cornerRadius(16)
+                    VStack{
+                        Text(node.title)
+                        
+                    }
+                }
+                Spacer()
+                HStack{
+                    Text("还有").font(.system(size: 14)).foregroundColor(.secondary)
+                    Text("78").font(.system(size: 28)).foregroundColor(Color("GreenColor"))
+                    Text("天").font(.system(size: 14)).foregroundColor(.secondary)
+                }
+                Spacer().frame(width: 12)
+                
+            }
+            .padding(.leading, 12)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity)
+            .background(Color("WriteColor"))
+            .cornerRadius(8)
+            .padding(.leading, 12)
+            .padding(.vertical, 10)
+            
+        }
+    }
+    
+    struct SubscribeNode:View {
+        @State var node:LineNode
+        var body:some View {
+            HStack{
+                HStack{
+                    VStack(alignment: .leading){
+                        Text(node.title)
+                        HStack{
+                            Text(MMDD.string(from: node.create))
+                                                    .font(.caption)
+                            Text("~")
+                            Text(MMDD.string(from: node.update))
+                                                    .font(.caption)
+                        }
+                    }
+                }
+                Spacer()
+                HStack{
+                    Text("剩余").font(.system(size: 14)).foregroundColor(.secondary)
+                    Text("19").font(.system(size: 28)).foregroundColor(Color("BlueColor"))
+                    Text("天").font(.system(size: 14)).foregroundColor(.secondary)
+                }
+                Spacer().frame(width: 12)
+                
             }
             .padding(.leading, 12)
             .padding(.vertical, 10)
@@ -143,7 +215,10 @@ extension LineNodeView {
                     NaggingNode(node: node)
                 case .task:
                     TaskNode(node: node)
-                    
+                case .count:
+                    CountNode(node: node)
+                case .subscribe:
+                    SubscribeNode(node:node)
                 default:
                     VStack{
                         NaggingNode(node: node)
