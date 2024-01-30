@@ -45,6 +45,7 @@ enum SFSymbol:String, Codable {
     case edit = "square.and.pencil"
     case pin = "pin"
     case unpin = "pin.slash"
+    case warn = "exclamationmark.triangle"
 }
 
 extension SFSymbol: View {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MCEmojiPicker
-import AlertToast
+import JDStatusBarNotification
 
 extension EditProejct {
     struct TitleView:View {
@@ -24,12 +24,11 @@ extension EditProejct {
         @EnvironmentObject var tagManage:TagManageModel
         @State var isEdit:Bool = false
         var body: some View{
-            HStack{
-                VStack{
-                    TagListView(isEdit: self.$isEdit)
-                }
-                Spacer()
-                VStack{
+            
+            TagListView(isEdit: self.$isEdit)
+                .overlay(content: {
+                HStack{
+                    Spacer()
                     HStack{
                         Group{
                             if(isEdit){
@@ -53,9 +52,9 @@ extension EditProejct {
                         .padding(.top, 4)
                         .foregroundColor(.gray)
                     }
-                    Spacer()
+                   
                 }
-            }
+            })
         }
     }
     
@@ -72,17 +71,22 @@ extension EditProejct {
                     self.projectModel.project?.name = self.name
                     self.projectModel.project?.icon = self.emoji
                     self.projectModel.project?.iconColor = self.projectColor
-                    self.projectModel.project?.tags = self.tagManage.tags
                     if(projectModel.isEdit){
                         projectManageModel.update(project: self.projectModel.project!)
                     }else{
-                        projectManageModel.add(project: self.projectModel.project!)
+                        projectManageModel.add(project: self.projectModel.project!,tags: self.tagManage.tags)
                     }
                     
                     self.$state.wrappedValue.toggle()
                 }
                 else {
-                    showToast = true
+                    NotificationPresenter.shared.presentSwiftView {
+                        HStack{
+                            SFSymbol.warn.foregroundColor(.orange)
+                            Text("请完善项目信息!")
+                        }
+                    }
+                    NotificationPresenter.shared.dismiss(after: 1.5)
                 }
             })
         }
@@ -141,12 +145,7 @@ extension EditProejct {
                     HStack{
                         TextField(text: self.$inputTag, label: {
                             Text("#")
-                        }).onChange(of: self.inputTag){
-                            newValue in
-                            if(newValue.count>4){
-                                self.inputTag = String(newValue.suffix(4))
-                            }
-                        }
+                        })
                         
                         if(self.inputTag != ""){
                             SFSymbol.plus
@@ -199,7 +198,6 @@ struct EditProejct: View {
     @State private var tagColor = Color("BlueColor")
     
     @State private var isPresented = false
-    @State private var showToast = false
     
     
     
@@ -231,9 +229,6 @@ struct EditProejct: View {
                 Spacer()
             }
             .padding(.horizontal)
-        }
-        .toast(isPresenting: $showToast,offsetY: 30){
-            AlertToast(displayMode: .hud, type: .error(.red), title: "请完善项目信息")
         }
         .onAppear {
             if (projectModel.project == nil) {

@@ -143,8 +143,6 @@ struct LineNode:Identifiable, Hashable, Codable {
         node.content = self.content
         node.create = self.create
         node.update = self.update
-        node.startTime = self.startTime
-        node.endTime = self.endTime
         node.nodeType = self.type.rawValue
         node.status = self.status.rawValue
         return node
@@ -167,10 +165,7 @@ struct LineNode:Identifiable, Hashable, Codable {
             create: node.create ?? Date(),
             update: node.update ?? Date(),
             content: node.content,
-            startTime: node.startTime ?? nil,
-            endTime: node.endTime ?? nil,
-            status: NodeStatus(rawValue: node.status ?? "未知") ?? .unowned,
-            belong: node.belong?.id
+            status: NodeStatus(rawValue: node.status ?? "未知") ?? .unowned
         )
         return node
         

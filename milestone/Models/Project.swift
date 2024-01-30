@@ -31,21 +31,39 @@ struct Project:Identifiable, Equatable {
     var icon: String
     var iconColor: Color
     var sort:SortOption = .asc
-    var tags: [Tag] = []
-    var timeLines:[TimeLine] = []
+    var tagsIds:[String] = []
+    
+    var tags: [Tag] {
+        return []
+    }
+    var timeLines:[TimeLine] {
+        return []
+    }
     var isTop:Bool
     
-    init(id:UUID? ,name: String, update: Date = Date(), create: Date = Date(), icon: String, iconColor: Color, tags: [Tag] = [], timeLines: [TimeLine] = [],sort:SortOption = .desc, isTop:Bool = false) {
+    
+    
+    
+    init(
+        id:UUID? ,
+        name: String,
+        update: Date = Date(),
+        create: Date = Date(),
+        icon: String, 
+        iconColor:Color,
+        sort:SortOption = .desc, 
+        isTop:Bool = false,
+        tagsIds:[String] = []
+    ) {
         self.id = id ?? UUID()
         self.name = name
         self.update = update
         self.icon = icon
         self.iconColor = iconColor
-        self.tags = tags
-        self.timeLines = timeLines
         self.create = create
         self.sort = sort
         self.isTop = isTop
+        self.tagsIds = tagsIds
     }
     
     static func into(context:NSManagedObjectContext)-> ProjectEntity {
@@ -55,9 +73,7 @@ struct Project:Identifiable, Equatable {
     }
     
     static func from(project:ProjectEntity)-> Project {
-        
-        let tags = project.tags?.allObjects as! [TagEntity]
-        let timelines = project.timelines?.allObjects as! [TimeLineEntity]
+        let tagIds:[String] = project.tagsIds == nil ? [] : project.tagsIds?.split(separator: ",") as! [String]
         let project = Project(
             id:project.id,
             name: project.name!,
@@ -65,9 +81,8 @@ struct Project:Identifiable, Equatable {
             create: project.create ?? Date(),
             icon: project.icon!,
             iconColor: Color(hex: project.iconColor!),
-            tags: tags.map({Tag.from(tag:$0)}).sorted { $0.create < $1.create },
-            timeLines: timelines.map({TimeLine.from(timeLine:$0)}).sorted { $0.create < $1.create },
-            isTop: project.isTop
+            isTop: project.isTop,
+            tagsIds: tagIds
         )
         return project
     }

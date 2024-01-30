@@ -39,25 +39,22 @@ struct Triangle: Shape {
 
 extension ProjectView {
     struct ProjectCard: View {
-        
         @EnvironmentObject var projectManageModel: ProjectManageModel
+        @GestureState var offset:CGFloat = 0
+        @Binding var sheetStatus:Bool
+        @Binding var rightSliding: UUID?
+        @Binding var confirm:Bool
+        @Binding var deleteTips:String
         
         var project:Project
+        var onCardTap: ()->Void
         
-        let OFFSET_VALUE:CGFloat = 140
-        
-        @GestureState var offset:CGFloat = 0
-        
-        @Binding var rightSliding: UUID?
-        
-        
-        @Binding var sheetStatus:Bool
-        
-        var isOperate:Bool {
+        private let OFFSET_VALUE:CGFloat = 140
+        private var isOperate:Bool {
             project.id == rightSliding
         }
     
-        var offsetX: CGFloat {
+        private var offsetX: CGFloat {
 
             if(isOperate){
                 return -OFFSET_VALUE
@@ -65,12 +62,11 @@ extension ProjectView {
             return offset
         }
         
-        var TopView: some View {
+        private var TopView: some View {
             project.isTop ? SFSymbol.unpin : SFSymbol.pin
         }
         
-        @Binding var comfirm:Bool
-        @Binding var deleteTips:String
+       
         
         var body: some View {
             ZStack{
@@ -127,6 +123,9 @@ extension ProjectView {
                 .padding(.vertical, 4)
                 .offset(x: offsetX, y: 0)
                 .animation(.spring, value: isOperate)
+                .onTapGesture {
+                    onCardTap()
+                }
                 .gesture(
                     DragGesture()
                         .updating($offset, body: {value,offset, _ in
@@ -184,7 +183,8 @@ extension ProjectView {
                             Text("删除").font(.caption2).foregroundColor(.gray)
                         }
                         .onTapGesture {
-                            comfirm.toggle()
+                            onCardTap()
+                            confirm.toggle()
                             deleteTips = project.name
                         }
                   }

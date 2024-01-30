@@ -47,17 +47,11 @@ struct TimeLine:Identifiable, Codable {
     }
     
     static func from(timeLine: TimeLineEntity)-> TimeLine {
-        let nodes = timeLine.nodes?.allObjects as! [NodeEntity]
         let t = TimeLine(
             id: timeLine.id!,
             name: timeLine.name!,
             icon: Icon(emoji: timeLine.icon!),
-            nodes: nodes.map({
-                var node = LineNode.from(node:$0)
-                node.initStatus()
-                return node
-                
-            }).sorted { $0.create > $1.create },
+            nodes: [],
             create: timeLine.create ?? Date(),
             update: timeLine.update ?? Date()
         )

@@ -1,14 +1,91 @@
-//
-//  Project.swift
-//  milestone
-//
-//  Created by 杨杨杨 on 2023/9/10.
-//
-
 import SwiftUI
+import JDStatusBarNotification
 
-
-extension ProjectView {
+struct ProjectView: View {
+    @ObservedObject  var projectManageModel = ProjectManageModel()
+    @State private var rightSliding: UUID?
+    
+    @State private var sheetStatus:Bool  = false
+    @State private var editSheetStatus:Bool  = false
+    @State private var editProject:Project? = nil
+    @State private var isActives: [Bool] = []
+    @State private var confirm:Bool = false
+    @State private var deleteTips:String = ""
+    @State private var shouldNavigate:Bool = false
+    
+    @State private var current:Project?
+    
+    func open(val:Bool){
+        self.sheetStatus = val
+    }
+    
+    func deleteAlert()->Alert {
+        Alert(title:Text("删除《\(self.deleteTips)》"),
+              message: Text("删除项目将删除相关所有内容，是否继续？"),
+              primaryButton: .default(
+                Text("取消")
+              ),
+              secondaryButton: .destructive(
+                Text("删除"),
+                action: {
+                    if let id = current?.id {
+                        projectManageModel.delete(id: id)
+                    }
+                    else {
+                        NotificationPresenter.shared.presentSwiftView {
+                            HStack{
+                                SFSymbol.warn.foregroundColor(.red)
+                                Text("删除目标似乎不见了!")
+                            }
+                        }
+                        NotificationPresenter.shared.dismiss(after: 1.5)
+                    }
+                    rightSliding = nil
+                    deleteTips = ""
+                }
+              )
+              
+        )
+    }
+    
+    func createContentMenu(item:Project) -> some View {
+        VStack {
+            createMenuItem(text: "编辑", onAction: {
+                projectManageModel.setCurrent(id: item.id)
+                self.open(val: true)
+            })
+            let topTitle = item.isTop ? "取消置顶" : "置顶"
+            createMenuItem(text: topTitle, onAction: {
+                projectManageModel.setTop(id: item.id,val: !item.isTop)
+            })
+            createMenuItem(text: "删除", onAction: {
+                current = item
+                self.confirm.toggle()
+                self.deleteTips = item.name
+               
+            })
+            
+        }
+    }
+    
+    var body: some View {
+        VStack(content: {
+            NavHeader
+            if(projectManageModel.projects.isEmpty){
+                EmptyView
+                Spacer()
+            } else {
+                ListView
+            }
+            
+        })
+        .onAppear(){
+            projectManageModel.fetch()
+        }
+        .padding(.bottom, 68)
+    }
+    
+    
     var NavHeader: some View {
         HStack(content: {
             Text("项目")
@@ -49,217 +126,50 @@ extension ProjectView {
         }.frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .padding()
     }
-}
-
-//扩展实现侧滑返回
-extension UINavigationController: UIGestureRecognizerDelegate {
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = self
-    }
     
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
-    }
-}
-
-struct ProjectDeatilView:View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var projectManageModel: ProjectManageModel
-    
-    @State var project: Project
-    @StateObject var projectModel: ProjectModel = ProjectModel()
-    
-    var body:some View {
-        ZStack{
-            BgView()
-            VStack{
-                TimeLineView(project: project)
-                    .environmentObject(projectModel)
-            }
-            .clipped()
-        }
-        .navigationBarBackButtonHidden()
-        .navigationTitle(project.name)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }, label: {
-            Group{
-                SFSymbol.back.onTapGesture {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }.foregroundStyle(Color.gray)
-        })
-        )
-        .navigationBarItems(trailing: Menu(content: {
-//            Button(action: {
-//               
-//            }, label: {
-//                VStack{
-//                    Text("总览")
-//                    Spacer()
-//                    SFSymbol.sort
-//                }
-//            })
-            Button(action: {
-                projectModel.setOrder(order: .asc)
-            }, label: {
-                VStack{
-                    Text("排序")
-                    Spacer()
-                    SFSymbol.sort
-                }
-            })
-            Button(action: {
-                
-            }, label: {
-                VStack{
-                    Text("设置")
-                    Spacer()
-                    SFSymbol.set
-                }
-            })
-        }, label: {
-            SFSymbol.ellipsis.foregroundStyle(Color.gray)
-        })
-        )
-        .onAppear {
-            projectManageModel.setCurrent(id: project.id)
-            if (projectModel.project == nil) {
-                projectModel.initProject(project: projectManageModel.currentProject)
-            }
-        }
-    }
-    
-}
-
-struct ProjectView: View {
-    @State private var sheetStatus:Bool  = false
-    
-    @State private var editSheetStatus:Bool  = false
-    
-    @ObservedObject var projectManageModel = ProjectManageModel()
-    @State private var editProject:Project? = nil
-    
-    @State var rightSliding: UUID?
-    
-    @State private var isActives: [Bool] = []
-    @State private var comfirm:Bool = false
-    
-    func open(val:Bool){
-        self.sheetStatus = val
-    }
-    
-    var canReander:Bool {
-        return isActives.count == projectManageModel.projects.count && isActives.count != 0
-    }
-    
-    @State var deleteTips:String = ""
-    
-    var body: some View {
-        VStack(content: {
-            NavHeader
-            if(canReander){
-                ScrollView(content: {
-                    ForEach(projectManageModel.projects){ item in
-                        NavigationLink(
-                             destination: ProjectDeatilView(project: item)
-                                   .environmentObject(projectManageModel),
-                             isActive: $isActives[projectManageModel.projects.firstIndex(of: item)!],
-                             label: {
-                                ProjectCard(
-                                    project:item,
-                                    rightSliding: $rightSliding,
-                                    sheetStatus: $sheetStatus,
-                                    comfirm:$comfirm,
-                                    deleteTips:$deleteTips
-                                ).environmentObject(projectManageModel)
-                                .contextMenu(menuItems: {
-                                    Button(action: {
-                                        projectManageModel.setCurrent(id: item.id)
-                                        self.open(val: true)
-                                    }) {
-                                        Text("编辑")
-                                    }
-                                    if(!item.isTop){
-                                        Button(action: {
-                                            projectManageModel.setTop(id: item.id,val: true)
-                                        }) {
-                                            Text("置顶")
-                                        }
-                                    }else{
-                                        Button(action: {
-                                            projectManageModel.setTop(id: item.id,val: false)
-                                        }) {
-                                            Text("取消置顶")
-                                        }
-                                    }
-                                
-                                    Button(action: {
-                                        self.comfirm.toggle()
-                                        self.deleteTips = item.name
-                                    }) {
-                                        Text("删除")
-                                    }
-                                })
-                                .padding([.leading,.trailing],20)
-                                .onTapGesture {
-                                    if(rightSliding == nil){
-                                        isActives[projectManageModel.projects.firstIndex(of: item)!] = true
-                                    }
-                                    rightSliding = nil
-                                }
-                          }
-                        )
-                        .alert(isPresented: self.$comfirm){
-                            Alert(title:Text("删除《\(self.deleteTips)》"),
-                                  message: Text("删除项目将删除相关所有内容，是否继续？"),
-                                  primaryButton: .default(
-                                    Text("取消")
-                                  ),
-                                  secondaryButton: .destructive(
-                                    Text("删除"),
-                                    action: {
-                                        projectManageModel.delete(id: item.id)
-                                        rightSliding = nil
-                                        deleteTips = ""
-                                   }
-                                )
-                                
-                            )
+    var ListView:some View {
+        ScrollView(content: {
+            ForEach(projectManageModel.projects){ item in
+                ProjectCard(
+                    sheetStatus: $sheetStatus,
+                    rightSliding: $rightSliding,
+                    confirm:$confirm,
+                    deleteTips:$deleteTips,
+                    project:item,
+                    onCardTap:{
+                        if rightSliding == nil {
+                            shouldNavigate = true // 触发导航
+                            rightSliding = nil
+                        }else {
+                            current = item
                         }
-                        .sheet(isPresented: self.$editSheetStatus, content: {
-                            EditProejct(
-                                state: self.$editSheetStatus
-                            )
-                            .onDisappear(){
-                                projectManageModel.setCurrent(id: nil)
-                            }
-                        })
-                        .environmentObject(projectManageModel)
-                        .buttonStyle(PlainButtonStyle())
-                       
+                    }
+                    
+                )
+                .environmentObject(projectManageModel)
+                .contextMenu { createContentMenu(item:item) }
+                .padding([.leading,.trailing],20)
+                .alert(isPresented: self.$confirm){
+                    deleteAlert()
+                }
+                .sheet(isPresented: self.$editSheetStatus, content: {
+                    EditProejct(
+                        state: self.$editSheetStatus
+                    )
+                    .onDisappear(){
+                        projectManageModel.setCurrent(id: nil)
                     }
                 })
-                .animation(.spring, value: projectManageModel.projects)
-            }else {
-                EmptyView
-                    .onAppear(){
-                       
-                        // 动态创建isActives数组，和items数目保持一致
-                        isActives = Array(repeating: false, count: projectManageModel.projects.count)
-                    }
-                Spacer()
+                .environmentObject(projectManageModel)
+                .buttonStyle(PlainButtonStyle())
+                .navigationDestination(isPresented:  $shouldNavigate, destination: {
+                    ProjectDeatilView(project: item).environmentObject(projectManageModel)
+                })
+                
             }
             
         })
-        .onAppear(){
-            projectManageModel.fetch()
-            // 动态创建isActives数组，和items数目保持一致
-            isActives = Array(repeating: false, count: projectManageModel.projects.count)
-         
-        }
-        .padding(.bottom, 68)
+        .animation(.spring, value: projectManageModel.projects)
     }
 }
 

@@ -8,7 +8,7 @@ class Service {
         container = NSPersistentContainer(name:"ProjectDB")
         container.loadPersistentStores{_,error in
             if let error = error{
-                self.clean()
+                self.clean() // FIXME 数据错误怎么处理
                 print(error.localizedDescription)
             }
         }
@@ -72,9 +72,8 @@ class ProjectService: Service {
         projectEntity.update = project.update
         projectEntity.iconColor = project.iconColor.toHex
         projectEntity.icon = project.icon
-        projectEntity.tags = NSSet(array: project.tags.map({$0.into(context: self.container.viewContext)}))
+        projectEntity.tagsIds = project.tagsIds.joined(separator: ",")
         projectEntity.isTop = project.isTop
-//        projectEntity.timelines = NSSet(array: project.timeLines.map({$0.into(context: self.container.viewContext)}))
         return projectEntity
     }
     
@@ -85,8 +84,7 @@ class ProjectService: Service {
             projectEntity.id =  project.id;
             projectEntity.create =  Date()
             projectEntity = replace(projectEntity: projectEntity, project: project)
-            projectEntity.tags = NSSet(array: project.tags.map({$0.into(context: self.container.viewContext)}))
-            projectEntity.timelines = NSSet(array: project.timeLines)
+            projectEntity.tagsIds = project.tagsIds.joined(separator: ",")
             self.save()
         }
         
@@ -160,20 +158,14 @@ class ProjectDeatilService:Service {
 
 class TimeLineService:Service {
     func add(timeline:TimeLine,belongId:UUID){
-        let request = NSFetchRequest<ProjectEntity>(entityName: "ProjectEntity")
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "id = \"\(belongId)\"")
-        if let projectEntity = try? self.container.viewContext.fetch(request).first {
-            let t = TimeLineEntity(context: self.container.viewContext)
-            t.id = timeline.id;
-            t.name = timeline.name;
-            t.icon = timeline.icon.rawvalue;
-            t.create = Date()
-            t.update = Date()
-            t.belong = projectEntity
-            t.nodes = []
-            self.save()
-        }
+        let t = TimeLineEntity(context: self.container.viewContext)
+        t.id = timeline.id;
+        t.name = timeline.name;
+        t.icon = timeline.icon.rawvalue;
+        t.projectId = belongId;
+        t.create = Date()
+        t.update = Date()
+        self.save()
         
     }
     
@@ -268,8 +260,6 @@ class NodeService:Service {
             nodeEntity.content = node.content
             nodeEntity.update = Date()
             nodeEntity.title = node.title
-            nodeEntity.startTime = node.startTime
-            nodeEntity.endTime = node.endTime
             nodeEntity.status = node.status.rawValue
             if self.container.viewContext.hasChanges {
                 self.save()
@@ -287,8 +277,6 @@ class NodeService:Service {
             nodeEntity.content = node.content
             nodeEntity.update = Date()
             nodeEntity.title = node.title
-            nodeEntity.startTime = node.startTime
-            nodeEntity.endTime = node.endTime
             nodeEntity.status = node.status.rawValue
             if self.container.viewContext.hasChanges {
                 self.save()
@@ -302,7 +290,7 @@ class NodeService:Service {
         request.fetchLimit = 1
         request.predicate = NSPredicate(format: "id = \"\(belongId)\"")
         
-        if let timeLine = try? self.container.viewContext.fetch(request).first {
+        if (try? self.container.viewContext.fetch(request).first) != nil {
             let n = NodeEntity(context: self.container.viewContext)
             n.id = node.id
             n.content = node.content
@@ -310,25 +298,18 @@ class NodeService:Service {
             n.update = Date()
             n.nodeType = node.type.rawValue
             n.title = node.title
-            n.startTime = node.startTime
-            n.endTime = node.endTime
             n.status = node.status.rawValue
-            n.belong = timeLine
+            n.timelineId = belongId
             self.save()
         }
     }
     
     func move(node:LineNode,belongId:UUID){
-        let request = NSFetchRequest<TimeLineEntity>(entityName: "TimeLineEntity")
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "id = \"\(belongId)\"")
-        if let timeLine = try? self.container.viewContext.fetch(request).first {
-            let nodeEntity = self.isExit(id: node.id)
-            if let nodeEntity = nodeEntity {
-                nodeEntity.belong = timeLine
-                if self.container.viewContext.hasChanges {
-                    self.save()
-                }
+        let nodeEntity = self.isExit(id: node.id)
+        if let nodeEntity = nodeEntity {
+            nodeEntity.timelineId = belongId
+            if self.container.viewContext.hasChanges {
+                self.save()
             }
         }
     }

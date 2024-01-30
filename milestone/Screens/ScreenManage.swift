@@ -1,30 +1,7 @@
 import SwiftUI
 
-
-
-extension ScreenManage {
-    var MianView: some View{
-        VStack{
-            switch currentTab {
-            case .taday:
-                HomeView()
-            case .project:
-                ProjectView()
-//            case .warehouse:
-//                WarehouseView()
-            case .me:
-                MeView()
-           
-            }
-        }
-        .frame(maxWidth:.infinity,maxHeight: .infinity)
-    }
-}
-
-
 struct MyNavigation<Content>: View where Content: View {
     @ViewBuilder var content: () -> Content
-    
     var body: some View {
         if #available(iOS 16, *) {
             NavigationStack(root: content)
@@ -35,9 +12,11 @@ struct MyNavigation<Content>: View where Content: View {
 }
 
 struct ScreenManage: View {
-    @State var currentTab:TabbarEnum = .project
     @AppStorage("DarkMode") var userDarkMode:DarkMode = .system
+    @State var currentTab:TabbarEnum = .project
     @State private var launchViewAlpha: CGFloat = 1
+    
+    
     var body: some View {
         ZStack {
             MyNavigation{
@@ -63,6 +42,19 @@ struct ScreenManage: View {
         .preferredColorScheme(userDarkMode == DarkMode.system ? nil : userDarkMode.mode)
            
         
+    }
+    
+    var MianView: some View{
+        VStack{
+            switch currentTab {
+            case .project:
+                ProjectView()
+            case .me:
+                MeView()
+           
+            }
+        }
+        .frame(maxWidth:.infinity,maxHeight: .infinity)
     }
 }
 

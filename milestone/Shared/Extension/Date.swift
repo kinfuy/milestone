@@ -1,62 +1,38 @@
-//
-//  Date.swift
-//  milestone
-//
-//  Created by 杨杨杨 on 2023/11/5.
-//
+import UIKit
 
-//import Foundation
-
-extension Date {
-//    func year() -> Int {
-//        Calendar.current.component(.era, from: self)
-//    }
-
+//MARK:-获取日期各种值
+extension Date{
+    //MARK:年
+    func year() -> Int {
+        Calendar.current.component(.era, from: self)
+    }
+    
+    //MARK: 月
     func month() -> Int {
         Calendar.current.component(.month, from: self)
     }
-
-//    func day() -> Int {
-//        Calendar.current.component(.day, from: self)
-//    }
-
+    
+    //MARK: 日
+    func day() -> Int {
+        Calendar.current.component(.day, from: self)
+    }
+    
+    //MARK: 小时
     func hour() -> Int {
         Calendar.current.component(.hour, from: self)
     }
-
+    
+    //MARK: 分钟
     func minute() -> Int {
         Calendar.current.component(.minute, from: self)
     }
-
+    
+    //MARK: 秒
     func second() -> Int {
         Calendar.current.component(.second, from: self)
     }
-}
-
-
-import UIKit
-extension Date{ //MARK:-获取日期各种值//MARK:年
-    func year() ->Int {
-        
-        let calendar = NSCalendar.current
-        
-        let com = calendar.dateComponents([.year,.month,.day], from: self)
-        
-        return com.year!
-        
-    }
     
-    //MARK: 日
     
-    func day() ->Int {
-        
-        let calendar = NSCalendar.current
-        
-        let com = calendar.dateComponents([.year,.month,.day], from: self)
-        
-        return com.day!
-        
-    }
     
     //MARK: 星期几
     
@@ -285,7 +261,8 @@ class DateClass {
         
         return date
         
-    } //MARK: 日期字符串转date
+    } 
+    //MARK: 日期字符串转date
     
     static func dateStringToDate(_ dateStr:String) ->Date {
         
@@ -295,9 +272,7 @@ class DateClass {
         
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let date
-        
-        = dateFormatter.date(from: dateStr)
+        let date = dateFormatter.date(from: dateStr)
         
         return date!
         

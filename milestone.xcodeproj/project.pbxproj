@@ -33,10 +33,11 @@
 		F25577902AB59A3E00F71FE1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F255778F2AB59A3E00F71FE1 /* UserDefaults.swift */; };
 		F25577922AB5F13400F71FE1 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25577912AB5F13400F71FE1 /* NavHeader.swift */; };
 		F25577972AB9F84900F71FE1 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25577962AB9F84900F71FE1 /* TimeLineView.swift */; };
-		F25AD5EB2B29F88C00E11F60 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = F25AD5EA2B29F88C00E11F60 /* AlertToast */; };
+		F26303332B3C756C000D1A40 /* ImageLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26303322B3C756C000D1A40 /* ImageLoaderView.swift */; };
+		F26303472B3C7D4D000D1A40 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F26303462B3C7D4D000D1A40 /* Localizable.xcstrings */; };
 		F26DD12C2AED558F00DF9025 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26DD12A2AED558F00DF9025 /* CoreDataService.swift */; };
 		F285002D2B1E20500095B3A8 /* NodeSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F285002C2B1E20500095B3A8 /* NodeSort.swift */; };
-		F286D8F22ADED989005A10CA /* Bingding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F12ADED989005A10CA /* Bingding.swift */; };
+		F286D8F22ADED989005A10CA /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F12ADED989005A10CA /* Binding.swift */; };
 		F286D8F42AE022EE005A10CA /* emptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F32AE022EE005A10CA /* emptyView.swift */; };
 		F286D8F62AE167A5005A10CA /* CardSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8F52AE167A5005A10CA /* CardSelectView.swift */; };
 		F291D8862AF630AF009D80D3 /* EditNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F291D8852AF630AF009D80D3 /* EditNode.swift */; };
@@ -48,6 +49,9 @@
 		F2AA61132AB555DA003548D9 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA61122AB555DA003548D9 /* ProjectModel.swift */; };
 		F2AF6E282ADA2D94005CF762 /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AF6E272ADA2D94005CF762 /* IconModel.swift */; };
 		F2BCCEA52AAF4FC2006FDBBA /* EditProejct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BCCEA42AAF4FC2006FDBBA /* EditProejct.swift */; };
+		F2C4B0F62B66555500682053 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C4B0F52B66555500682053 /* DetailView.swift */; };
+		F2C4B0F82B6655B400682053 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C4B0F72B6655B400682053 /* Router.swift */; };
+		F2D7B2E12B3C4E2A0005E6EF /* JDStatusBarNotification in Frameworks */ = {isa = PBXBuildFile; productRef = F2D7B2E02B3C4E2A0005E6EF /* JDStatusBarNotification */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,9 +81,11 @@
 		F255778F2AB59A3E00F71FE1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		F25577912AB5F13400F71FE1 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		F25577962AB9F84900F71FE1 /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
+		F26303322B3C756C000D1A40 /* ImageLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderView.swift; sourceTree = "<group>"; };
+		F26303462B3C7D4D000D1A40 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F26DD12A2AED558F00DF9025 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		F285002C2B1E20500095B3A8 /* NodeSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeSort.swift; sourceTree = "<group>"; };
-		F286D8F12ADED989005A10CA /* Bingding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bingding.swift; sourceTree = "<group>"; };
+		F286D8F12ADED989005A10CA /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		F286D8F32AE022EE005A10CA /* emptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emptyView.swift; sourceTree = "<group>"; };
 		F286D8F52AE167A5005A10CA /* CardSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSelectView.swift; sourceTree = "<group>"; };
 		F291D8852AF630AF009D80D3 /* EditNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNode.swift; sourceTree = "<group>"; };
@@ -91,6 +97,8 @@
 		F2AA61122AB555DA003548D9 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		F2AF6E272ADA2D94005CF762 /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
 		F2BCCEA42AAF4FC2006FDBBA /* EditProejct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProejct.swift; sourceTree = "<group>"; };
+		F2C4B0F52B66555500682053 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		F2C4B0F72B6655B400682053 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2D7B2E12B3C4E2A0005E6EF /* JDStatusBarNotification in Frameworks */,
 				F22AFDA62B28ACAA006113B1 /* MCEmojiPicker in Frameworks */,
-				F25AD5EB2B29F88C00E11F60 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,8 +133,11 @@
 		F22BDBD92AAA1753000A0412 = {
 			isa = PBXGroup;
 			children = (
+				F26303462B3C7D4D000D1A40 /* Localizable.xcstrings */,
+				F26DD1292AED558F00DF9025 /* Service */,
+				F2AF6E292ADA5639005CF762 /* DB */,
+				F28D0CA62AB5529600B3B7A6 /* Assets */,
 				F22BDBE42AAA1753000A0412 /* milestone */,
-				F22BDBE52AAA1753000A0412 /* AppEntry.swift */,
 				F22BDBE32AAA1753000A0412 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,14 +153,12 @@
 		F22BDBE42AAA1753000A0412 /* milestone */ = {
 			isa = PBXGroup;
 			children = (
-				F26DD1292AED558F00DF9025 /* Service */,
-				F2AF6E292ADA5639005CF762 /* DB */,
+				F22BDBE52AAA1753000A0412 /* AppEntry.swift */,
 				F2AF6E262ADA2351005CF762 /* Shared */,
 				F23208072AD99B9A003A8CA1 /* ModelViews */,
 				F2D2E8A92AB5509700F4360F /* Screens */,
 				F28D0CA12AB5515500B3B7A6 /* Models */,
 				F28D0CAB2AB553B700B3B7A6 /* Components */,
-				F28D0CA62AB5529600B3B7A6 /* Assets */,
 			);
 			path = milestone;
 			sourceTree = "<group>";
@@ -206,8 +215,10 @@
 				F255778F2AB59A3E00F71FE1 /* UserDefaults.swift */,
 				F217E0DF2ACFD75C00013649 /* ToolView.swift */,
 				F2A978032AD9A08D00ABA274 /* Color.swift */,
-				F286D8F12ADED989005A10CA /* Bingding.swift */,
+				F286D8F12ADED989005A10CA /* Binding.swift */,
 				F291D8892AF7EB27009D80D3 /* Date.swift */,
+				F26303322B3C756C000D1A40 /* ImageLoaderView.swift */,
+				F2C4B0F72B6655B400682053 /* Router.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -235,6 +246,7 @@
 				F25577942AB9F82500F71FE1 /* TimeLine */,
 				F2BCCEA42AAF4FC2006FDBBA /* EditProejct.swift */,
 				F2A978072AD9A35000ABA274 /* ProjectCard.swift */,
+				F2C4B0F52B66555500682053 /* DetailView.swift */,
 				F23208052AD6DF83003A8CA1 /* EditTimeLine.swift */,
 				F286D8F52AE167A5005A10CA /* CardSelectView.swift */,
 				F291D8852AF630AF009D80D3 /* EditNode.swift */,
@@ -322,7 +334,7 @@
 			name = milestone;
 			packageProductDependencies = (
 				F22AFDA52B28ACAA006113B1 /* MCEmojiPicker */,
-				F25AD5EA2B29F88C00E11F60 /* AlertToast */,
+				F2D7B2E02B3C4E2A0005E6EF /* JDStatusBarNotification */,
 			);
 			productName = milestone;
 			productReference = F22BDBE22AAA1753000A0412 /* milestone.app */;
@@ -349,13 +361,12 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				"zh-Hans",
 			);
 			mainGroup = F22BDBD92AAA1753000A0412;
 			packageReferences = (
 				F22AFDA42B28ACAA006113B1 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
-				F25AD5E92B29F88C00E11F60 /* XCRemoteSwiftPackageReference "AlertToast" */,
+				F2D7B2DF2B3C4E2A0005E6EF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */,
 			);
 			productRefGroup = F22BDBE32AAA1753000A0412 /* Products */;
 			projectDirPath = "";
@@ -372,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F255778E2AB58CC700F71FE1 /* Assets.xcassets in Resources */,
+				F26303472B3C7D4D000D1A40 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,8 +394,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C4B0F82B6655B400682053 /* Router.swift in Sources */,
+				F26303332B3C756C000D1A40 /* ImageLoaderView.swift in Sources */,
 				F217E0E22ACFE9CB00013649 /* TagList.swift in Sources */,
-				F286D8F22ADED989005A10CA /* Bingding.swift in Sources */,
+				F286D8F22ADED989005A10CA /* Binding.swift in Sources */,
 				F285002D2B1E20500095B3A8 /* NodeSort.swift in Sources */,
 				F208EC3D2AC0037400C90ADB /* LaunchView.swift in Sources */,
 				F286D8F42AE022EE005A10CA /* emptyView.swift in Sources */,
@@ -414,6 +428,7 @@
 				F22BDBF92AAD8F46000A0412 /* Tabbar.swift in Sources */,
 				F248157D2ADC195B001D9F45 /* ModelView.swift in Sources */,
 				F2506D882AC8669F008118DD /* LineView.swift in Sources */,
+				F2C4B0F62B66555500682053 /* DetailView.swift in Sources */,
 				F2AF6E282ADA2D94005CF762 /* IconModel.swift in Sources */,
 				F286D8F62AE167A5005A10CA /* CardSelectView.swift in Sources */,
 				F2506D8A2AC867F4008118DD /* LineNodeView.swift in Sources */,
@@ -479,6 +494,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -535,6 +551,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -549,6 +566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -556,13 +574,15 @@
 				DEVELOPMENT_TEAM = MGFQ8L5XWQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = milestone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "里程碑";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -585,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -592,13 +613,15 @@
 				DEVELOPMENT_TEAM = MGFQ8L5XWQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = milestone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "里程碑";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -648,12 +671,12 @@
 				minimumVersion = 1.2.3;
 			};
 		};
-		F25AD5E92B29F88C00E11F60 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+		F2D7B2DF2B3C4E2A0005E6EF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/elai950/AlertToast";
+			repositoryURL = "https://github.com/calimarkus/JDStatusBarNotification";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.9;
+				minimumVersion = 2.2.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -664,10 +687,10 @@
 			package = F22AFDA42B28ACAA006113B1 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
 			productName = MCEmojiPicker;
 		};
-		F25AD5EA2B29F88C00E11F60 /* AlertToast */ = {
+		F2D7B2E02B3C4E2A0005E6EF /* JDStatusBarNotification */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F25AD5E92B29F88C00E11F60 /* XCRemoteSwiftPackageReference "AlertToast" */;
-			productName = AlertToast;
+			package = F2D7B2DF2B3C4E2A0005E6EF /* XCRemoteSwiftPackageReference "JDStatusBarNotification" */;
+			productName = JDStatusBarNotification;
 		};
 /* End XCSwiftPackageProductDependency section */
 

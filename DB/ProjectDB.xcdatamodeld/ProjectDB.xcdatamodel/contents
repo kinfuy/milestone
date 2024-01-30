@@ -9,20 +9,18 @@
         <attribute name="unit" optional="YES" attributeType="String"/>
         <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="valueType" attributeType="String"/>
-        <relationship name="belong" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="milestone" inverseEntity="TimeLineEntity"/>
     </entity>
     <entity name="NodeEntity" representedClassName="NodeEntity" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="extra" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="nodeType" attributeType="String"/>
-        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="projectId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="status" attributeType="String"/>
+        <attribute name="timelineId" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="belong" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="nodes" inverseEntity="TimeLineEntity"/>
     </entity>
     <entity name="ProjectEntity" representedClassName="ProjectEntity" syncable="YES" codeGenerationType="class">
         <attribute name="create" attributeType="Date" usesScalarValueType="NO"/>
@@ -32,9 +30,9 @@
         <attribute name="isTop" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="sort" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="tagsIds" optional="YES" attributeType="String"/>
         <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TagEntity" inverseName="belong" inverseEntity="TagEntity"/>
-        <relationship name="timelines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeLineEntity" inverseName="belong" inverseEntity="TimeLineEntity"/>
     </entity>
     <entity name="TagEntity" representedClassName="TagEntity" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="String"/>
@@ -43,7 +41,6 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String" minValueString="1" maxValueString="50"/>
         <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="belong" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProjectEntity" inverseName="tags" inverseEntity="ProjectEntity"/>
     </entity>
     <entity name="TaskEntity" representedClassName="TaskEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
@@ -53,9 +50,8 @@
         <attribute name="icon" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="projectId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="update" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="belong" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectEntity" inverseName="timelines" inverseEntity="ProjectEntity"/>
-        <relationship name="milestone" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MilestoneEntity" inverseName="belong" inverseEntity="MilestoneEntity"/>
-        <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NodeEntity" inverseName="belong" inverseEntity="NodeEntity"/>
     </entity>
 </model>

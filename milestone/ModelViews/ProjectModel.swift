@@ -2,10 +2,11 @@ import SwiftUI
 import CoreData
 
 
-final class ProjectManageModel:ObservableObject {
+class ProjectManageModel:ObservableObject {
     @Published var projects:[Project] = []
     @Published var currentProject:Project?
     private var service = ProjectService()
+    private var tagService = TagService()
     
     init(){
         self.fetch();
@@ -31,8 +32,8 @@ final class ProjectManageModel:ObservableObject {
     func fetch(){
         self.projects = service.findAll()
     }
-
-    func add(project:Project){
+    
+    func add(project:Project,tags:[Tag]){
         service.add(project)
         self.fetch()
     }
@@ -40,7 +41,6 @@ final class ProjectManageModel:ObservableObject {
     func delete(id: UUID){
         service.delete(id: id)
         self.fetch()
-        
     }
     
     func update(project:Project){
@@ -64,10 +64,7 @@ class ProjectModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var current:UUID?
     @Published var isEdit = false
-    
-    
     @Published var editNode:LineNode?
-    
     @Published var editTimeLIne:TimeLine?
     
     private var service = ProjectDeatilService()
@@ -78,7 +75,6 @@ class ProjectModel: ObservableObject {
     
     func setOrder(order: SortOption){
         project?.sort = order;
-        project?.timeLines[currentIndex].setOrder(order:order)
     }
     
     func initEditNode(node:LineNode){
@@ -119,12 +115,12 @@ class ProjectModel: ObservableObject {
         }
     }
     
-
+    
     func fetch(){
         if let id = project?.id {
             self.project = service.find(id: id)
         }
-       
+        
     }
     
     func initProject(project:Project?){
@@ -200,7 +196,7 @@ class ProjectModel: ObservableObject {
             nodeService.createOrUpdate(node: node, belongId: self.timeLine!.id)
             self.fetch()
         }
-       
+        
     }
     
     func deleteNode(id:UUID){
@@ -210,7 +206,7 @@ class ProjectModel: ObservableObject {
         }
     }
     
-
+    
     
     func switchTab(type: String){
         if(type == "next") {
@@ -233,13 +229,13 @@ class ProjectModel: ObservableObject {
                 nodeService.move(node: node, belongId: belongId)
                 self.fetch()
             }
-           
+            
         }
-       
+        
     }
     
     func getNode(id:UUID)-> LineNode? {
-       return timeLine?.nodes.first(where: {$0.id == id})
+        return timeLine?.nodes.first(where: {$0.id == id})
     }
     
     func moveNode(nodeId:UUID, belongId:UUID){
@@ -249,7 +245,7 @@ class ProjectModel: ObservableObject {
                     nodeService.move(node: node, belongId: belongId)
                     self.fetch()
                 }
-               
+                
             }
             
         }

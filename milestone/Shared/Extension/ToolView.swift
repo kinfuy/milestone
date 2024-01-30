@@ -24,6 +24,7 @@ extension View {
             .background(Color("WriteColor"))
     }
     
+    
     func card()-> some View {
         self
             .selection()
@@ -32,31 +33,54 @@ extension View {
     }
 }
 
+extension View {
+    /// 当用户点击其他区域时隐藏软键盘
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    func createMenuItem(text: String, imgName: String, isDestructive: Bool = false, onAction: (() -> Void)?) -> some View {
+        if #available(iOS 15.0, *) {
+            return Button(role: isDestructive ? .destructive : nil) {
+                onAction?()
+            } label: {
+                Label(text, systemImage: imgName)
+            }
+        } else {
+            return Button {
+                onAction?()
+            } label: {
+                Label(text, systemImage: imgName)
+            }
+        }
+    }
+    
+    func createMenuItem(text: String, isDestructive: Bool = false, onAction: (() -> Void)?) -> some View {
+        if #available(iOS 15.0, *) {
+            return Button(role: isDestructive ? .destructive : nil) {
+                onAction?()
+            } label: {
+                Text(text)
+            }
+        } else {
+            return Button {
+                onAction?()
+            } label: {
+                Text(text)
+            }
+        }
+    }
+}
+
 extension String {
     /// 判断字符串是否是表情
-    ///
-    /// - Returns: 字符串是否是表情
     var isEmoji: Bool {
-        // 表情的 Unicode 范围为：
-        // 0x1F000 - 0x1F9FF
-        // 0x2600 - 0x27BF
-        // 0x2700 - 0x27BF
-        // 0x1F300 - 0x1F5FF
-        // 0x1F600 - 0x1F6FF
-        // 0x1F700 - 0x1F7FF
-        // 0x1F800 - 0x1F8FF
-        // 0x1F900 - 0x1F9FF
-        
         let range = ClosedRange<UInt32>(uncheckedBounds: (0x1F000, 0x1F9FF))
         return unicodeScalars.contains(where: { scalar in scalar.value >= range.lowerBound && scalar.value <= range.upperBound })
     }
-    
-    //    var isEmoji: Bool {
-    //        for scalar in unicodeScalars {
-    //            if (0x1F600...0x1F64F ~= scalar.value) || (0x2702...0x27B0 ~= scalar.value) || (0x1F680...0x1F6FF ~= scalar.value) {
-    //                return true
-    //            }
-    //        }
-    //        return false
-    //    }
+    /// MARK 加载国际化语言
+    public func localized() -> String {
+        let string = NSLocalizedString(self, comment: self)
+        return string
+    }
 }

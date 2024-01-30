@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum TabbarEnum: String, CaseIterable {
-    case taday  = "摘要"
+//    case taday  = "摘要"
     case project = "项目"
 //    case warehouse = "仓库"
     case me = "设置"
@@ -9,8 +9,8 @@ enum TabbarEnum: String, CaseIterable {
     
     var iconName: SFSymbol {
         switch self {
-        case .taday:
-            return SFSymbol.home
+//        case .taday:
+//            return SFSymbol.home
         case .project:
             return SFSymbol.book
         case .me:

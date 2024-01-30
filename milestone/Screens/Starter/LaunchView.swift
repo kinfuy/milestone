@@ -45,11 +45,6 @@ struct LaunchView: View {
                             }
                             .foregroundColor(Color("BlueColor"))
                         }
-                        VStack{
-                            Text("Plan Less Do More")
-                                .font(.system(size: 28))
-                                .foregroundColor(Color.gray.opacity(0.8))
-                        }
                         
                     }
                     .offset(CGSize(width: 0, height: -60))
